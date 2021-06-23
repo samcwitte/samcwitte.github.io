@@ -17,6 +17,13 @@ body {
     background-color: #023047;
 }
 
+.topmenu a {
+    float: center;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
 .topmenu a:hover {
     background-color: #0a3b53;
 }
