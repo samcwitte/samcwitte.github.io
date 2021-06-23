@@ -2,20 +2,31 @@
 
 body {
     background-color: #8ecae6;
+    color: #000000;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 110%;
     }
-  h1 {
-    color: black;
-    
-    }
-  p {
-    color: black;
-    
-    }
+
 .header {
     background-color: #219ebc;
     color: #023047;
+}
+
+.topmenu {
+    overflow: hidden;
+    background-color: #023047;
+}
+
+.topmenu a:hover {
+    background-color: #0a3b53;
+}
+
+.topmenu a.active {
+    background-color: #023047;
+}
+
+.middlebody {
+    padding-left: 16px;
 }
 
 .footer {
