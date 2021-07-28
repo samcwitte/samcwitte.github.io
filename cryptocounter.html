@@ -53,7 +53,7 @@
 							<div class="wrapper">
 								<div class="inner">
 
-									<h2 class="major">Summary</h3>
+									<h2 class="major">Summary / Table of Contents</h3>
 									<p>This is what I would say was my first <i>real</i> project. By that, I mean something with a real goal, purpose, and way to get there. When I began thinking about how to make this, I knew three things: </p>
 									<ul>
 										<li>It needed to be wireless</li>
@@ -61,7 +61,17 @@
 										<li>Price conversion between USD, ETH, and support for any other currencies I may decide to add in the future</li>
 									</ul>
 
-									<h2 class="major" id="hardware">Hardware</h3>
+									<h4 class="major">Table of Contents</h4>
+									<ul>
+										<li><a href="#hardware">Hardware</a></li>
+										<li><a href="#software">Software & Code</a></li>
+										<li style="margin-left: 40px"><a href="#apis">APIs</a></li>
+										<li style="margin-left: 40px"><a href="#displayinit">Display Initialization</a></li>
+										<li style="margin-left: 40px"><a href="#math">The Math</a></li>
+										<li><a href="#final">Final Thoughts</a></li>
+									</ul>
+
+									<h2 class="major" id="hardware">Hardware</h2>
 									<p>For this project, I used</p>
 									<ul>
 										<li>a Raspberry Pi Zero W</li>
@@ -70,7 +80,7 @@
 									</ul>
 									<p>I used Fusion360 to design and model the box. For the first iteration, I failed to recognize that the Raspberry Pi was about 0.1" wider than the inside of the box. On the second iteration, the lid wouldn't fit. Finally, on the third iteration, I got what I would call a "neat box, I guess"</p>
 
-									<h2 class="major" id="software">Software & Code</h3>
+									<h2 class="major" id="software">Software & Code</h2>
 									<p>Before this project, I hardly knew any Python. Enough to print <code>Hello World</code> in the console, but not much more than that. Throughout this project, I learned how to use various APIs, define and call functions, and use libraries to interface with, in this project's case, GPIO pins on the Raspberry Pi.</p>
 									<p>If you'd like to skip all of this and look at my poor attempt at neat code, <a href="#">click here</a>.</p>
 
@@ -113,7 +123,7 @@ global secPerCoin
 global coinsPerSec
 coinsPerSec = stats['coinsPerMin'] / 60.0
 secPerCoin = 0.00000001 / coinsPerSec</code></pre>
-									<h2 class="major" id="final">The Final Product / Reflection</h2>
+									<h2 class="major" id="final">Final Thoughts</h2>
 									<p>I wanted to reflect on what I learned throughout the development and creation of this project.</p>
 									<p>Coming soon, I'm tired :p</p>
 
