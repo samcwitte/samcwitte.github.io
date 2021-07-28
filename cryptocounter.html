@@ -3,10 +3,12 @@
 	Solid State by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+
+	Modified by Sam Witte
 -->
 <html>
 	<head>
-		<title>Generic - Solid State by HTML5 UP</title>
+		<title>Crypto Counter | Sam Witte</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -19,7 +21,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">Solid State</a></h1>
+						<h1><a href="index.html">Sam Witte</a></h1>
 						<nav>
 							<a href="#menu">Menu</a>
 						</nav>
@@ -31,10 +33,8 @@
 							<h2>Menu</h2>
 							<ul class="links">
 								<li><a href="index.html">Home</a></li>
-								<li><a href="generic.html">Generic</a></li>
-								<li><a href="elements.html">Elements</a></li>
-								<li><a href="#">Log In</a></li>
-								<li><a href="#">Sign Up</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="portfolio.html">Portfolio</a></li>
 							</ul>
 							<a href="#" class="close">Close</a>
 						</div>
@@ -44,8 +44,8 @@
 					<section id="wrapper">
 						<header>
 							<div class="inner">
-								<h2>Generic</h2>
-								<p>Phasellus non pulvinar erat. Fusce tincidunt nisl eget ipsum.</p>
+								<h2>Cryptocurrency Counter</h2>
+								<p>Utilizing 14-segment displays, a Raspberry Pi, APIs, and a 3D-printed enclosure, this Python-powered box provides me with a real-time estimate of how much cryptocurrency I'm mining.</p>
 							</div>
 						</header>
 
@@ -53,28 +53,69 @@
 							<div class="wrapper">
 								<div class="inner">
 
-									<h3 class="major">Lorem ipsum dolor</h3>
-									<p>Morbi mattis mi consectetur tortor elementum, varius pellentesque velit convallis. Aenean tincidunt lectus auctor mauris maximus, ac scelerisque ipsum tempor. Duis vulputate ex et ex tincidunt, quis lacinia velit aliquet. Duis non efficitur nisi, id malesuada justo. Maecenas sagittis felis ac sagittis semper. Curabitur purus leo donec vel dolor at arcu tincidunt bibendum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce ut aliquet justo. Donec id neque ipsum. Integer eget ultricies odio. Nam vel ex a orci fringilla tincidunt. Aliquam eleifend ligula non velit accumsan cursus. Etiam ut gravida sapien.</p>
+									<h2 class="major">Summary</h3>
+									<p>This is what I would say was my first <i>real</i> project. By that, I mean something with a real goal, purpose, and way to get there. When I began thinking about how to make this, I knew three things: </p>
+									<ul>
+										<li>It needed to be wireless</li>
+										<li>Real-time cryptocurrency balance estimates</li>
+										<li>Price conversion between USD, ETH, and support for any other currencies I may decide to add in the future</li>
+									</ul>
 
-									<p>Vestibulum ultrices risus velit, sit amet blandit massa auctor sit amet. Sed eu lectus sem. Phasellus in odio at ipsum porttitor mollis id vel diam. Praesent sit amet posuere risus, eu faucibus lectus. Vivamus ex ligula, tempus pulvinar ipsum in, auctor porta quam. Proin nec commodo, vel scelerisque nisi scelerisque. Suspendisse id quam vel tortor tincidunt suscipit. Nullam auctor orci eu dolor consectetur, interdum ullamcorper ante tincidunt. Mauris felis nec felis elementum varius.</p>
+									<h2 class="major" id="hardware">Hardware</h3>
+									<p>For this project, I used</p>
+									<ul>
+										<li>a Raspberry Pi Zero W</li>
+										<li>2x Adafruit 14-segment displays with I<sup>2</sup>C boards</li>
+										<li>a 3D printed enclosure</li>
+									</ul>
+									<p>I used Fusion360 to design and model the box. For the first iteration, I failed to recognize that the Raspberry Pi was about 0.1" wider than the inside of the box. On the second iteration, the lid wouldn't fit. Finally, on the third iteration, I got what I would call a "neat box, I guess"</p>
 
-									<h3 class="major">Vitae phasellus</h3>
-									<p>Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.</p>
+									<h2 class="major" id="software">Software & Code</h3>
+									<p>Before this project, I hardly knew any Python. Enough to print <code>Hello World</code> in the console, but not much more than that. Throughout this project, I learned how to use various APIs, define and call functions, and use libraries to interface with, in this project's case, GPIO pins on the Raspberry Pi.</p>
+									<p>If you'd like to skip all of this and look at my poor attempt at neat code, <a href="#">click here</a>.</p>
 
-									<section class="features">
-										<article>
-											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
-											<h3 class="major">Sed feugiat lorem</h3>
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing vehicula id nulla dignissim dapibus ultrices.</p>
-											<a href="#" class="special">Learn more</a>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
-											<h3 class="major">Nisl placerat</h3>
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing vehicula id nulla dignissim dapibus ultrices.</p>
-											<a href="#" class="special">Learn more</a>
-										</article>
-									</section>
+									<h4 class="major" id="apis">APIs</h4>
+									<p>For this project, I used mainly the <a href="https://coinbase.com">Coinbase</a> and <a href="https://ethermine.org">Ethermine</a> APIs. I also used <a href="https://infura.io">Infura</a> to grab my wallet's balance off of the Ethereum blockchain.</p>
+									<p>It was my first time using an API, so I had to figure some things out, like how to call functions from them.</p>
+									<p>I decided to use Coinbase to get coin prices, mainly because I knew that they had an API, and I already had an account with them, so it would just be more convenient.</p>
+									<p>To get Coinbase's sell price for Ethereum, Coinbase's API needed wallet access. I used a dummy wallet with no crypto in it, so nothing was risked. To set up the Coinbase wallet access, I used the following code:</p>
+									<pre><code>coinbase_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+coinbase_key = 'xxxxxxxxxxxxxxxx'
+coinbase_client = Client(coinbase_key, coinbase_secret)
+price = coinbase_client.get_sell_price(currency_pair = 'ETH-USD')['amount']</code></pre>
+									<p>Coinbase provided me with a secret key and a regular key. I didn't try to protect them because the account has no crypto in it, and I won't be buying and selling, only <i>checking</i> the sell price.</p>
+									<p>Currently, I can get the price of any supported cryptocurrency on Coinbase. As of now, I only intend to use ETH, as that's what I've been mining for a while, but I intend to add support for RVN(Ravencoin). Ravencoin is <i>not</i> currently supported on Coinbase, so I'll need to look into a different API for that.</p>
+
+									<h4 class="major" id="displayinit">Display Initialization</h4>
+									<p>The 14-segment displays interface through I<sup>2</sup>C. First, we need to create the interface. We do this using</p>
+									<pre><code>i2c = busio.I2C(board.SCL, board.SDA)</code></pre>
+									<p>Next, we need to create the display within the script. For that, we use</p>
+									<pre><code>displayL = Seg14x4(i2c, address=0x71)
+displayR = Seg14x4(i2c, address=0x70)</code></pre>
+									<p>Notice we need to create two displays - left and right. This is because we can only create a single (14 segment) x (4 character) display at a time. Using I<sup>2</sup>C, we can connect multiple of these displays at a time. To use more than one display over the same I<sup>2</sup>C bus, there are assignable ID's on the back of the provided board. In this case I used 0x70 and 0x71. It doesn't matter what you use, as long as you know the IDs.
+									In order for the circuit board to "know" what its ID is, you simply solder the pads on the back with the ID you want.</p>
+									<p>Next, we want to clear the display. This one is simple. Just fill the display with nothing!</p>
+									<pre><code>displayL.fill(0)
+displayR.fill(0)</code></pre>
+									<p>Finally, to finish initializing the display, let's set the brightness.</p>
+									<pre><code>displayL.brightness = 1.0
+displayR.brightness = 1.0</code></pre>
+									
+									<p>Tada! The display is now initialized and we can display any 8 characters we want using</p>
+									<pre><code>displayL[0-3] = [character]</code> or <code>displayR[0-3] = [character]</code></pre>
+
+									<h4 class="major" id="math">The Math</h4>
+									<p>So now that everything is initialized, we can get into the math. Ethermine provides the user with a few important data points. Current unpaid balance, average hashrate, and average coins per minute.</p>
+									<p>Using these, I figured out the amount of time it took to mine 0.00000001(<i>1 one-hundred-millionth</i>) ETH, the smallest amount the display can output, and updated the display once per <i>that</i> amount of time.</p>
+									<p>First, update the <code>stats</code> variable. Then, using the API-provided <code>coinsPerMin</code>, we can figure out the time it takes to mine 0.00000001 ETH.</p>
+									<pre><code>stats = ethermine.miner_current_stats(address)
+global secPerCoin
+global coinsPerSec
+coinsPerSec = stats['coinsPerMin'] / 60.0
+secPerCoin = 0.00000001 / coinsPerSec</code></pre>
+									<h2 class="major" id="final">The Final Product / Reflection</h2>
+									<p>I wanted to reflect on what I learned throughout the development and creation of this project.</p>
+									<p>Coming soon, I'm tired :p</p>
 
 								</div>
 							</div>
