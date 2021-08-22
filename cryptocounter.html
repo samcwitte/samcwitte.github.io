@@ -54,12 +54,7 @@
 								<div class="inner">
 
 									<h2 class="major">Summary / Table of Contents</h3>
-									<p>This is what I would say was my first <i>real</i> project. By that, I mean something with a real goal, purpose, and way to get there. When I began thinking about how to make this, I knew three things: </p>
-									<ul>
-										<li>It needed to be wireless</li>
-										<li>Real-time cryptocurrency balance estimates</li>
-										<li>Price conversion between USD, ETH, and support for any other currencies I may decide to add in the future</li>
-									</ul>
+									<p>This is what I would say was my first <i>real</i> project. By that, I mean something with a real goal, purpose, and way to get there. When I began thinking about how to make this, I knew that it needed to be both wireless as well as provide real-time estimates on how much cryptocurrency I was mining. </p>
 
 									<h4 class="major">Table of Contents</h4>
 									<ul>
@@ -67,6 +62,7 @@
 										<li><a href="#software">Software & Code</a></li>
 										<li style="margin-left: 40px"><a href="#apis">APIs</a></li>
 										<li style="margin-left: 40px"><a href="#displayinit">Display Initialization</a></li>
+										<li style="margin-left: 40px"><a href="#displayproblem">A Display Problem</a></li>
 										<li style="margin-left: 40px"><a href="#math">The Math</a></li>
 										<li><a href="#final">Final Thoughts</a></li>
 									</ul>
@@ -74,27 +70,22 @@
 									<h2 class="major" id="hardware">Hardware</h2>
 									<p>For this project, I used</p>
 									<ul>
-										<li>a Raspberry Pi Zero W</li>
-										<li>2x Adafruit 14-segment displays with I<sup>2</sup>C boards</li>
-										<li>a 3D printed enclosure</li>
+										<li>a Raspberry Pi Zero W, and </li>
+										<li>(2) Adafruit 14-segment displays with I<sup>2</sup>C boards</li>
 									</ul>
-									<p>I used Fusion360 to design and model the box. For the first iteration, I failed to recognize that the Raspberry Pi was about 0.1" wider than the inside of the box. On the second iteration, the lid wouldn't fit. Finally, on the third iteration, I got what I would call a "neat box, I guess"</p>
 
 									<h2 class="major" id="software">Software & Code</h2>
 									<p>Before this project, I hardly knew any Python. Enough to print <code>Hello World</code> in the console, but not much more than that. Throughout this project, I learned how to use various APIs, define and call functions, and use libraries to interface with, in this project's case, GPIO pins on the Raspberry Pi.</p>
-									<p>If you'd like to skip all of this and look at my poor attempt at neat code, <a href="#">click here</a>.</p>
 
 									<h4 class="major" id="apis">APIs</h4>
-									<p>For this project, I used mainly the <a href="https://coinbase.com">Coinbase</a> and <a href="https://ethermine.org">Ethermine</a> APIs. I also used <a href="https://infura.io">Infura</a> to grab my wallet's balance off of the Ethereum blockchain.</p>
-									<p>It was my first time using an API, so I had to figure some things out, like how to call functions from them.</p>
-									<p>I decided to use Coinbase to get coin prices, mainly because I knew that they had an API, and I already had an account with them, so it would just be more convenient.</p>
-									<p>To get Coinbase's sell price for Ethereum, Coinbase's API needed wallet access. I used a dummy wallet with no crypto in it, so nothing was risked. To set up the Coinbase wallet access, I used the following code:</p>
-									<pre><code>coinbase_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-coinbase_key = 'xxxxxxxxxxxxxxxx'
-coinbase_client = Client(coinbase_key, coinbase_secret)
-price = coinbase_client.get_sell_price(currency_pair = 'ETH-USD')['amount']</code></pre>
-									<p>Coinbase provided me with a secret key and a regular key. I didn't try to protect them because the account has no crypto in it, and I won't be buying and selling, only <i>checking</i> the sell price.</p>
-									<p>Currently, I can get the price of any supported cryptocurrency on Coinbase. As of now, I only intend to use ETH, as that's what I've been mining for a while, but I intend to add support for RVN(Ravencoin). Ravencoin is <i>not</i> currently supported on Coinbase, so I'll need to look into a different API for that.</p>
+									<p>For this project, I used mainly the <a href="https://coingecko.com">CoinGecko</a> and <a href="https://ethermine.org">Ethermine</a> APIs. I also used <a href="https://infura.io">Infura</a> to grab my wallet's balance off of the Ethereum blockchain.</p>
+									<p>This was my first time utilizing any API, so I had to figure some things out, like how to call functions from them. Turns out it's pretty simple.</p>
+									<p>I decided to use CoinGecko to get coin prices, because it was free to use, had no keys, and had easy-to-understand documentation.</p>
+									<p>All you need to do to get the price of, for example, Ethereum, you just need to use:</p>
+									<pre><code>price = cg.get_price(ids='ethereum', vs_currencies='usd')
+price_rvn = cg.get_price(ids='ravencoin', vs_currencies='usd')</code></pre>
+									<p>There's a whole list of other currencies that you can get with help from their documentation, but that's all we should need for now.</p>
+									<p></p>
 
 									<h4 class="major" id="displayinit">Display Initialization</h4>
 									<p>The 14-segment displays interface through I<sup>2</sup>C. First, we need to create the interface. We do this using</p>
@@ -107,25 +98,41 @@ displayR = Seg14x4(i2c, address=0x70)</code></pre>
 									<p>Next, we want to clear the display. This one is simple. Just fill the display with nothing!</p>
 									<pre><code>displayL.fill(0)
 displayR.fill(0)</code></pre>
-									<p>Finally, to finish initializing the display, let's set the brightness.</p>
+									<p>Finally, to finish initializing the display, let's set the brightness. This can be any value from 0.0 to 1.0.</p>
 									<pre><code>displayL.brightness = 1.0
 displayR.brightness = 1.0</code></pre>
 									
 									<p>Tada! The display is now initialized and we can display any 8 characters we want using</p>
-									<pre><code>displayL[0-3] = [character]</code> or <code>displayR[0-3] = [character]</code></pre>
+									<code>displayL[0-3] = [character]</code> or <code>displayR[0-3] = [character]</code><br>
+
+									<br><h4 class="major" id="displayproblem">A Display Problem</h4>
+									<p>One particularly simple yet tough problem I had to solve along the way, was getting the first segmented display to display a decimal with the number. I didn't want to hard-code in the value for it, because what's the fun in that?</p>
+									<p>Instead, the solution I landed on after several hours of troubleshooting, was to make a dictionary with every digit, 0-9, and bitwise-or add the decimal.</p>
+									<p>The way these displays work, every segment on the display has its own bit. So if I wanted to display a 0, with a decimal place, I would send the binary coresponding to the segments I want to light up.</p>
+									
 
 									<h4 class="major" id="math">The Math</h4>
 									<p>So now that everything is initialized, we can get into the math. Ethermine provides the user with a few important data points. Current unpaid balance, average hashrate, and average coins per minute.</p>
 									<p>Using these, I figured out the amount of time it took to mine 0.00000001(<i>1 one-hundred-millionth</i>) ETH, the smallest amount the display can output, and updated the display once per <i>that</i> amount of time.</p>
-									<p>First, update the <code>stats</code> variable. Then, using the API-provided <code>coinsPerMin</code>, we can figure out the time it takes to mine 0.00000001 ETH.</p>
+									<p>First, update the <code>stats</code> variable. Then, using the API-provided <code>coinsPerMin</code> attribute, we can figure out the time it takes to mine 0.00000001 ETH, say <i>x</i>, and update the display every <i>x</i> seconds.</p>
 									<pre><code>stats = ethermine.miner_current_stats(address)
-global secPerCoin
 global coinsPerSec
+global secPerCoin
 coinsPerSec = stats['coinsPerMin'] / 60.0
 secPerCoin = 0.00000001 / coinsPerSec</code></pre>
 									<h2 class="major" id="final">Final Thoughts</h2>
 									<p>I wanted to reflect on what I learned throughout the development and creation of this project.</p>
-									<p>Coming soon, I'm tired :p</p>
+									<p>Throughout this project, I learned and improved many valuable skills. Some of those include:</p>
+									<ul>
+										<li>Troubleshooting</li>
+										<li>Finishing a project from start to finish</li>
+										<li>GitHub (pushing, committing, and using the application)</li>
+										<li>Working with team members(I'll explain below)</li>
+										<li>I<sup>2</sup>C interfacing</li>
+										<li>Python and libraries</li>
+										<li><code>ssh</code> and working through the command line</li>
+									</ul>
+									<p>Overall, it was a great project that allowed me to improve on many skills, while connecting two areas I'm passionate about — cryptocurrency and electonics.</p>
 
 								</div>
 							</div>
