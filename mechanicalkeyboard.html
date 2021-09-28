@@ -8,7 +8,7 @@
 -->
 <html>
 	<head>
-		<title>Crypto Counter | Sam Witte</title>
+		<title>Mechanical Keyboard | Sam Witte</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -45,7 +45,7 @@
 						<header>
 							<div class="inner">
 								<h2>Custom Mechanical Keyboard</h2>
-								<p>Using KiCAD for schematic design and PCB layout and design, and Fusion360 for case and hardware design, I designed a 70% mechanical keyboard.</p>
+								<p>Using KiCAD for schematic design and PCB layout & design, and Fusion360 for case and hardware design, I designed a 70% mechanical keyboard.</p>
 							</div>
 						</header>
 
@@ -67,36 +67,24 @@
 									</ul>
 
 									<h2 class="major" id="hardware">Hardware</h2>
-									<p>For this project, I used</p>
+									<p></p>
 									<ul>
-										<li>a Raspberry Pi Zero W</li>
-										<li>2x Adafruit 14-segment displays with I<sup>2</sup>C boards</li>
-										<li>a 3D printed enclosure</li>
+										<li></li>
+										<li></li>
+										<li></li>
 									</ul>
-									<p>I used Fusion360 to design and model the box. For the first iteration, I failed to recognize that the Raspberry Pi was about 0.1" wider than the inside of the box. On the second iteration, the lid wouldn't fit. Finally, on the third iteration, I got what I would call a "neat box, I guess"</p>
+									<p></p>
 
-									<h2 class="major" id="software">Software & Code</h2>
-									<p>Before this project, I hardly knew any Python. Enough to print <code>Hello World</code> in the console, but not much more than that. Throughout this project, I learned how to use various APIs, define and call functions, and use libraries to interface with, in this project's case, GPIO pins on the Raspberry Pi.</p>
-									<p>If you'd like to skip all of this and look at my poor attempt at neat code, <a href="#">click here</a>.</p>
+									<h2 class="major" id="software"></h2>
+									<p></p>
+									<p></p>
 
-									<h4 class="major" id="apis">APIs</h4>
-									<p>For this project, I used mainly the <a href="https://coinbase.com">Coinbase</a> and <a href="https://ethermine.org">Ethermine</a> APIs. I also used <a href="https://infura.io">Infura</a> to grab my wallet's balance off of the Ethereum blockchain.</p>
-									<p>It was my first time using an API, so I had to figure some things out, like how to call functions from them.</p>
-									<p>I decided to use Coinbase to get coin prices, mainly because I knew that they had an API, and I already had an account with them, so it would just be more convenient.</p>
-									<p>To get Coinbase's sell price for Ethereum, Coinbase's API needed wallet access. I used a dummy wallet with no crypto in it, so nothing was risked. To set up the Coinbase wallet access, I used the following code:</p>
-									<pre><code>coinbase_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-coinbase_key = 'xxxxxxxxxxxxxxxx'
-coinbase_client = Client(coinbase_key, coinbase_secret)
-price = coinbase_client.get_sell_price(currency_pair = 'ETH-USD')['amount']</code></pre>
-									<p>Coinbase provided me with a secret key and a regular key. I didn't try to protect them because the account has no crypto in it, and I won't be buying and selling, only <i>checking</i> the sell price.</p>
-									<p>Currently, I can get the price of any supported cryptocurrency on Coinbase. As of now, I only intend to use ETH, as that's what I've been mining for a while, but I intend to add support for RVN(Ravencoin). Ravencoin is <i>not</i> currently supported on Coinbase, so I'll need to look into a different API for that.</p>
+									<h4 class="major" id="apis"></h4>
+									<p></p>
 
-									<h4 class="major" id="displayinit">Display Initialization</h4>
-									<p>The 14-segment displays interface through I<sup>2</sup>C. First, we need to create the interface. We do this using</p>
-									<pre><code>i2c = busio.I2C(board.SCL, board.SDA)</code></pre>
-									<p>Next, we need to create the display within the script. For that, we use</p>
-									<pre><code>displayL = Seg14x4(i2c, address=0x71)
-displayR = Seg14x4(i2c, address=0x70)</code></pre>
+									<h4 class="major" id="displayinit"></h4>
+									<p></p>
+									<p></p>
 									<p>Notice we need to create two displays - left and right. This is because we can only create a single (14 segment) x (4 character) display at a time. Using I<sup>2</sup>C, we can connect multiple of these displays at a time. To use more than one display over the same I<sup>2</sup>C bus, there are assignable ID's on the back of the provided board. In this case I used 0x70 and 0x71. It doesn't matter what you use, as long as you know the IDs.
 									In order for the circuit board to "know" what its ID is, you simply solder the pads on the back with the ID you want.</p>
 									<p>Next, we want to clear the display. This one is simple. Just fill the display with nothing!</p>
@@ -128,47 +116,19 @@ secPerCoin = 0.00000001 / coinsPerSec</code></pre>
 					</section>
 
 				<!-- Footer -->
-					<section id="footer">
-						<div class="inner">
-							<h2 class="major">Get in touch</h2>
-							<p>Cras mattis ante fermentum, malesuada neque vitae, eleifend erat. Phasellus non pulvinar erat. Fusce tincidunt, nisl eget mattis egestas, purus ipsum consequat orci, sit amet lobortis lorem lacus in tellus. Sed ac elementum arcu. Quisque placerat auctor laoreet.</p>
-							<form method="post" action="#">
-								<div class="fields">
-									<div class="field">
-										<label for="name">Name</label>
-										<input type="text" name="name" id="name" />
-									</div>
-									<div class="field">
-										<label for="email">Email</label>
-										<input type="email" name="email" id="email" />
-									</div>
-									<div class="field">
-										<label for="message">Message</label>
-										<textarea name="message" id="message" rows="4"></textarea>
-									</div>
-								</div>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
-							</form>
-							<ul class="contact">
-								<li class="icon solid fa-home">
-									Untitled Inc<br />
-									1234 Somewhere Road Suite #2894<br />
-									Nashville, TN 00000-0000
-								</li>
-								<li class="icon solid fa-phone">(000) 000-0000</li>
-								<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-								<li class="icon brands fa-twitter"><a href="#">twitter.com/untitled-tld</a></li>
-								<li class="icon brands fa-facebook-f"><a href="#">facebook.com/untitled-tld</a></li>
-								<li class="icon brands fa-instagram"><a href="#">instagram.com/untitled-tld</a></li>
-							</ul>
-							<ul class="copyright">
-								<li>&copy; Untitled Inc. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</div>
-					</section>
-
+				<section id="footer">
+					<div class="inner">
+						<h2 class="major">Get in touch</h2>
+						<p>I'd love to hear from you! Shoot me a call, text, or email, and I'll get back to you as soon as I can.</p>
+						<ul class="contact">
+							<li class="icon solid fa-envelope"><a href="mailto:sam@samwitte.com">sam@samwitte.com</a></li>
+							<li class="icon solid fa-phone">(314) 608-1334</li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Sam Witte. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a>, modified by me.</li>
+						</ul>
+					</div>
+				</section>
 			</div>
 
 		<!-- Scripts -->
