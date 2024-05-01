@@ -1,6 +1,6 @@
 // Thank you to https://tools.wwwtyro.net/space-3d/index.html for the skybox texture.
 
-import * as THREE from 'three';
+import * as THREE from '../node_modules/three/build/three.module.js';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/RenderPass.js';
