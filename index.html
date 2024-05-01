@@ -1,139 +1,61 @@
-<!DOCTYPE HTML>
-<!--
-	Solid State by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 
-	Modified by Sam Witte
--->
-<html>
-	<head>
-		<title>Sam Witte</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="pages.js"></script>
+</head>
+<body>
+    <canvas class="webgl"></canvas>
+    <div id="sidebar">
+        <button class="close-btn">close</button>
+        <h1>sam witte</h1>
+        <ul>
+            <li>
+                <a href="javascript:void(0);"><span class="brackets">[</span> about me <span class="brackets">]</span></a>
+            </li>
+            <li>
+                <a href="javascript:void(0);"><span class="brackets">[</span> resume <span class="brackets">]</span></a>
+            </li>
+            <br>
+            <div style="text-align: center; padding: 8px; letter-spacing: 2px;">projects</div>
+            <li>
+                <a href="javascript:void(0);" onclick="toggleDropdown(event, 'dropdown-1')"><span class="toggle"> + </span><span class="brackets">[</span> personal projects <span class="brackets">]</span></a>
+                <ul id="dropdown-1" class="dropdown-content">
+                    <li><a href="#" class="expand-link" style="padding-left: 50px;"><span class="sub-brackets">&lt;</span> personal website <span class="sub-brackets">&gt;</span></a></li>
+                    <li><a href="#" class="expand-link" style="padding-left: 50px;"><span class="sub-brackets">&lt;</span> hackuiowa 2023 <span class="sub-brackets">&gt;</span></a></li>
+                    <li><a href="#" class="expand-link" style="padding-left: 50px;"><span class="sub-brackets">&lt;</span> hpr flight computer <span class="sub-brackets">&gt;</span></a></li>
+                    <li><a href="#" class="expand-link" style="padding-left: 50px;"><span class="sub-brackets">&lt;</span> crypto counter <span class="sub-brackets">&gt;</span></a></li>
+                    <li><a href="#" class="expand-link" style="padding-left: 50px;"><span class="sub-brackets">&lt;</span> custom keyboard <span class="sub-brackets">&gt;</span></a></li>
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
-
-				<!-- Header -->
-					<header id="header" class="alt">
-						<h1><a href="https://samwitte.com/">Sam Witte</a></h1>
-						<nav>
-							<a href="#menu">Menu</a>
-						</nav>
-					</header>
-
-				<!-- Menu -->
-					<nav id="menu">
-						<div class="inner">
-							<h2>Menu</h2>
-							<ul class="links">
-								<li><a href="#">Home</a></li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="portfolio.html">Portfolio</a></li>
-							</ul>
-							<a href="#" class="close">Close</a>
-						</div>
-					</nav>
-
-				<!-- Banner -->
-					<section id="banner">
-						<div class="inner">
-							<!-- <div class="logo"><span class="fas fa-microchip"></span></div> -->
-							<h2>Sam Witte</h2>
-							<p>Electrical Engineering student at the University of Iowa<br><br>Undergraduate Computer Engineer<br> at the University of Iowa Deptartment of Physics and Astronomy</p>
-						</div>
-					</section>
-
-				<!-- Wrapper -->
-					<section id="wrapper">
-
-						<!-- One -->
-							<section id="one" class="wrapper spotlight style1">
-								<div class="inner">
-									<a href="about.html" class="image"><img src="images/me.jpg" alt="A picture of me!" /></a>
-									<div class="content">
-										<h2 class="major">About Me</h2>
-										<p>I'm attending the University of Iowa pursuing a Bachelor's in Electrical Engineering with a focus in computer hardware!</p>
-										<p>I plan to graduate December of 2024, and I'm actively searching for Summer 2024 internships and full time positions for January 2025 onward.</p>
-										<a href="about.html" class="special">More</a>
-										<a href="resume.pdf" class="special">Download my Resume (PDF)</a>
-									</div>
-								</div>
-							</section>
-
-						<!-- Four -->
-							<section id="four" class="wrapper alt style1">
-								<div class="inner">
-									<h2 class="major">Projects</h2>
-									<p>Below are a few projects I've completed. If you click on one that looks interesting, you will be directed to a page all about that project, full of documentation and pictures! </p>
-									<section class="features">
-										<article>
-											<a href="fpgaprojects.html" class="image"><img src="images/fpgaprojects.jpg" alt="" /></a>
-											<h3 class="major">FPGA Projects</h3>
-											<p>Various FPGA projects that I'm working on. Most of these are personal or work projects intended to help me learn more about Verilog and hardware description languages.</p>
-											<a href="fpgaprojects.html" class="special">Learn more</a>
-										</article>
-										<article>
-											<a href="flightcomputer.html" class="image"><img src="images/IMG_8730.jpg" alt="" /></a>
-											<h3 class="major">HPR Flight Computer v1</h3>
-											<p>Using KiCAD, I designed a PCB that allows various breakout boards made by <a href="https://www.adafruit.com/">Adafruit</a> to connect to a Raspberry Pi Pico to allow for in-flight data measurements on HPR model rockets.</p>
-											<a href="flightcomputer.html" class="special">Learn more</a>
-										</article>
-										<article>
-											<a href="cryptocounter.html" class="image"><img src="images/counter.gif" alt="" /></a>
-											<h3 class="major">Cryptocurrency Counter</h3>
-											<p>Utilizing 14-segment displays, a Raspberry Pi, and APIs, this Python-powered counter provides me with a real-time estimate of how much cryptocurrency I've mined.</p>
-											<a href="cryptocounter.html" class="special">Learn more</a>
-										</article>
-										<article>
-											<a href="mechanicalkeyboard.html" class="image"><img src="images/4k_Render_2.jpg" alt="" /></a>
-											<h3 class="major">Fully Custom Mechanical Keyboard</h3>
-											<p>Using KiCAD for PCB design and Fusion 360 for case and hardware design, I created a fully custom mechanical keyboard for personal interest.</p>
-											<a href="mechanicalkeyboard.html" class="special">Learn more</a>
-										</article>
-										<!-- <article>
-											<a href="#" class="image"><img src="images/comingsoon.png" alt="" /></a>
-											<h3 class="major">Coming soon...</h3>
-											<p>I have several new projects coming soon! I'm always trying to learn and improve.</p>
-											<a href="#" class="special">Learn more</a>
-										</article> -->
-									</section>
-									<ul class="actions">
-										<li><a href="portfolio.html" class="button">Click here to Browse all of my Projects</a></li>
-									</ul>
-								</div>
-							</section>
-
-					</section>
-
-				<!-- Footer -->
-					<section id="footer">
-						<div class="inner">
-							<h2 class="major">Get in touch</h2>
-							<p>I'd love to hear from you! Shoot me a call, text, or email, and I'll get back to you as soon as I can.</p>
-							<ul class="contact">
-								<li class="icon solid fa-envelope"><a href="mailto:sam@samwitte.com">sam@samwitte.com</a></li>
-								<li class="icon solid fa-phone">(314) 608-1334</li>
-							</ul>
-							<ul class="copyright">
-								<li>&copy; Sam Witte. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a>, modified by me.</li>
-							</ul>
-						</div>
-					</section>
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="toggleDropdown(event, 'dropdown-2')"><span class="toggle"> + </span><span class="brackets">[</span> class projects <span class="brackets">]</span></a>
+                <ul id="dropdown-2" class="dropdown-content">
+                    <li><a href="#" class="expand-link" style="padding-left: 50px;"><span class="sub-brackets">&lt;</span> ece:3350 final project <span class="sub-brackets">&gt;</span></a></li>
+                    <li><a href="#" class="expand-link" style="padding-left: 50px;"><span class="sub-brackets">&lt;</span> ece:5550 final project <span class="sub-brackets">&gt;</span></a></li>
+                </ul>
+            </li>
+            <!-- <li>
+                <a href="javascript:void(0);" onclick="toggleDropdown(event, 'dropdown-3')"><span class="toggle"> + </span><span class="brackets">[</span> project 3 <span class="brackets">]</span></a>
+                <ul id="dropdown-3" class="dropdown-content">
+                    <li><a href="#" class="expand-link" style="padding-left: 50px;"><span class="sub-brackets">&lt;</span> sub-item 1 <span class="sub-brackets">&gt;</span></a></li>
+                    <li><a href="#" class="expand-link" style="padding-left: 50px;"><span class="sub-brackets">&lt;</span> sub-item 2 <span class="sub-brackets">&gt;</span></a></li>
+                </ul>
+            </li> -->
+        </ul>
+        <div class="footer">&copy; 2024 Sam Witte</div>
+    </div>
+    <script type="module" src="main.js"></script>
+    <div id="info">this site is a work in progress. i apologize for any broken stuff. <br>also the links on the left don't work yet, i'm still working on making new pages for them.</div>
+</body>
 </html>
