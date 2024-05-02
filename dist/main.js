@@ -1,4 +1,5 @@
 // Thank you to https://tools.wwwtyro.net/space-3d/index.html for the skybox texture.
+console.log("In ./dist");
 
 import * as THREE from "../node_modules/three/build/three.module.js";
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js';
@@ -7,7 +8,6 @@ import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/post
 import { UnrealBloomPass } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/OutputPass.js';
 
-console.log("In ./dist");
 
 const fps = 60;
 const frameDelay = 1000 / fps;
