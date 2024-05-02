@@ -7,6 +7,7 @@ import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/post
 import { UnrealBloomPass } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/OutputPass.js';
 
+console.log("In ./dist");
 
 const fps = 60;
 const frameDelay = 1000 / fps;
