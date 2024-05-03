@@ -1,17 +1,20 @@
 // Thank you to https://tools.wwwtyro.net/space-3d/index.html for the skybox texture.
-console.log("In root");
+// Thank you to NASA for the Sun, Moon, and Earth textures.
 
-import * as THREE from "./node_modules/three/build/three.module.js"; //'https://cdn.jsdelivr.net/npm/three/build/three.module.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js';
-import { EffectComposer } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/UnrealBloomPass.js';
-import { OutputPass } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/OutputPass.js';
+import * as THREE from 'three'; //"./node_modules/three/build/three.module.js"; //'https://cdn.jsdelivr.net/npm/three/build/three.module.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js"; //'https://cdn.jsdelivr.net/npm/three/examples/jsm/postprocessing/OutputPass.js';
+import * as TWEEN from '@tweenjs/tween.js';
+import { Easing } from '@tweenjs/tween.js';
 
 
 const fps = 60;
 const frameDelay = 1000 / fps;
 let lastFrameTime = 0;
+const defaultCameraPosition = new THREE.Vector3(-10, 3, 10);
 
 const sizes = {
   width: window.innerWidth,
@@ -20,20 +23,34 @@ const sizes = {
 
 const scene = new THREE.Scene();
 
-const planetTexture = new THREE.TextureLoader().load("earth-texture.jpg");
+// Planet (default: Earth)
+const planetTexture = require("./static/earth-texture.jpg");
 const planetGeometry = new THREE.SphereGeometry(3, 32, 32);
 const planetMaterial = new THREE.MeshStandardMaterial( {
-  map: planetTexture,
+  map: new THREE.TextureLoader().load(planetTexture),
 } );
 
 const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial);
 planetMesh.rotation.set(23.5 * THREE.MathUtils.DEG2RAD, 0, 0);
 scene.add(planetMesh);
 
+// Star (default: Sun)
+const starTexture = require("./static/star-texture.jpg");
+const starGeometry = new THREE.SphereGeometry(25, 32, 32);
+const starMaterial = new THREE.MeshStandardMaterial( {
+  emissive: 0xffffff,
+  emissiveMap: new THREE.TextureLoader().load(starTexture),
+  emissiveIntensity: 0.75,
+  map: new THREE.TextureLoader().load(starTexture)
+} );
+const starMesh = new THREE.Mesh(starGeometry, starMaterial);
+starMesh.position.set(0, 0, 500);
+scene.add(starMesh);
+
 
 // Sun Light
 const sunLight = new THREE.DirectionalLight(0xFFFFFF, 0.5);
-sunLight.intensity = 3;
+sunLight.intensity = 0.75;
 sunLight.position.set(0, 0, 10);
 sunLight.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -45,42 +62,30 @@ scene.add(sunLight);
 const ambientLight = new THREE.AmbientLight(0x111111);
 scene.add(ambientLight);
 
-
 // Helpers
 // const gridHelper = new THREE.GridHelper(200, 50);
 // scene.add(gridHelper);
 
-// Star creation
-function addStar() {
-  const starGeometry = new THREE.SphereGeometry(0.25, 24, 24);
-  const starMaterial = new THREE.MeshStandardMaterial( { color: 0xffffff });
-    starMaterial.emissive = new THREE.Color(255, 255, 255);
-    starMaterial.emissiveIntensity = 1;
-  const star = new THREE.Mesh(starGeometry, starMaterial);
-
-  const [x, y, z] = Array(3).fill().map(() => 50 * THREE.MathUtils.randFloatSpread( 10 ) );
-
-  star.position.set(x, y, z);
-  scene.add(star);
-}
-// Array(200).fill().forEach(addStar);
-
+const skybox_top = require("./static/skybox/top.png");
+const skybox_bottom = require("./static/skybox/bottom.png");
+const skybox_left = require("./static/skybox/left.png");
+const skybox_right = require("./static/skybox/right.png");
+const skybox_front = require("./static/skybox/front.png");
+const skybox_back = require("./static/skybox/back.png");
 const loader = new THREE.CubeTextureLoader();
-loader.setPath( "skybox/" );
 
 const textureCube = loader.load([
-  "left.png", "right.png",
-  "top.png", "bottom.png",
-  "front.png", "back.png"
+  skybox_left, skybox_right,
+  skybox_top, skybox_bottom,
+  skybox_front, skybox_back
 ]);
 
 scene.background = textureCube;
 
 // Camera
-const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 1000);
-camera.position.z = 10;
-camera.position.y = 3;
-camera.position.x = -10;
+const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 5000);
+camera.position.set(defaultCameraPosition);
+camera.lookAt(planetMesh.getWorldPosition);
 scene.add(camera);
 
 // Renderer
@@ -90,6 +95,17 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.render(scene, camera);
 
+// Bloom
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+bloomPass.threshold = 0.1; // Lower threshold to make the sun's emissive parts bloom more
+bloomPass.strength = 1.5; // Adjust based on desired intensity
+bloomPass.radius = 0.5; // Radius of the glow effect
+
+// Effect Composer
+const composer = new EffectComposer( renderer );
+composer.addPass( new RenderPass(scene, camera) );
+composer.addPass( bloomPass );
+
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
@@ -97,6 +113,86 @@ controls.enablePan = false;
 controls.enableZoom = true;
 controls.autoRotate = true;
 controls.autoRotateSpeed = 0.05;
+
+// Click detection and ray casting
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+function onMouseClick(event) {
+  // Calculate mouse position in normalized device coordinates (-1 to +1) for both components
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  // Update the picking ray with the camera and mouse position
+  raycaster.setFromCamera(mouse, camera);
+
+  // Calculate objects intersecting the picking ray
+  const intersects = raycaster.intersectObjects(scene.children, true);
+
+  if (intersects.length > 0) {
+      focusOnObject(intersects[0].object);
+  }
+}
+
+window.addEventListener('click', onMouseClick);
+
+function focusOnObject(object) {
+  console.log( "click beginning" );
+  const targetPosition = new THREE.Vector3().setFromMatrixPosition(object.matrixWorld);
+  const currentCameraPosition = camera.position.clone();
+  let radius;
+
+  if (object.geometry.parameters.radius != undefined) {
+    radius = object.geometry.parameters.radius;
+  } else { return; }
+
+  const fovFraction = 0.5;
+  const fovInRadians = camera.fov * Math.PI / 180;
+  const distance = radius / Math.sin((fovFraction * fovInRadians) / 2);
+
+  // Determine the new camera position
+  const direction = new THREE.Vector3().subVectors(camera.position, object.position).normalize();
+  const newCameraPosition = new THREE.Vector3().addVectors(object.position, direction.multiplyScalar(distance));
+
+  new TWEEN.Tween(camera.position)
+    .to({
+        x: newCameraPosition.x,
+        y: newCameraPosition.y,
+        z: newCameraPosition.z
+    }, 1000)
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .start();
+
+  new TWEEN.Tween(controls.target)
+    .to({
+      x: object.position.x,
+      y: object.position.y,
+      z: object.position.z
+    }, 1000)
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .onUpdate(() => controls.update())
+    .start();
+
+  console.log( "click end" );
+  //camera.position.copy(currentCameraPosition);
+}
+
+
+
+// Key Listener
+window.addEventListener('keydown', function(event) {
+  if (event.key === 'r' || event.key === 'R') {
+      resetCamera();
+  }
+});
+
+function resetCamera() {
+  camera.position.copy(defaultCameraPosition);
+  camera.lookAt(planetMesh.getWorldPosition);
+
+  controls.target.set(0, 0, 0);
+  controls.update(); // Needed to re-render the scene with new controls
+}
 
 
 
@@ -110,11 +206,13 @@ window.addEventListener("resize", () => {
   camera.aspect = sizes.width / sizes.height;
   camera.updateProjectionMatrix();
   renderer.setSize(sizes.width, sizes.height);
+  composer.setSize(sizes.width, sizes.height);
 });
 
 
 
-
+resetCamera();
+focusOnObject(planetMesh);
 // Main Loop
 const loop = (time) => {
   window.requestAnimationFrame(loop);
@@ -123,9 +221,12 @@ const loop = (time) => {
 
   lastFrameTime = time - (delta % frameDelay);
 
+  TWEEN.update();
+
   controls.update();
   planetMesh.rotateY(0.0005);
-  renderer.render(scene, camera);
+  //renderer.render(scene, camera);
+  composer.render(time);
 }
 loop()
 
