@@ -24,7 +24,7 @@ const sizes = {
 const scene = new THREE.Scene();
 
 // Planet (default: Earth)
-const planetTexture = require("./static/earth-texture.jpg");
+const planetTexture = require("./public/earth-texture.jpg");
 const planetGeometry = new THREE.SphereGeometry(3, 32, 32);
 const planetMaterial = new THREE.MeshStandardMaterial( {
   map: new THREE.TextureLoader().load(planetTexture),
@@ -35,7 +35,7 @@ planetMesh.rotation.set(23.5 * THREE.MathUtils.DEG2RAD, 0, 0);
 scene.add(planetMesh);
 
 // Star (default: Sun)
-const starTexture = require("./static/star-texture.jpg");
+const starTexture = require("./public/star-texture.jpg");
 const starGeometry = new THREE.SphereGeometry(25, 32, 32);
 const starMaterial = new THREE.MeshStandardMaterial( {
   emissive: 0xffffff,
@@ -66,12 +66,12 @@ scene.add(ambientLight);
 // const gridHelper = new THREE.GridHelper(200, 50);
 // scene.add(gridHelper);
 
-const skybox_top = require("./static/skybox/top.png");
-const skybox_bottom = require("./static/skybox/bottom.png");
-const skybox_left = require("./static/skybox/left.png");
-const skybox_right = require("./static/skybox/right.png");
-const skybox_front = require("./static/skybox/front.png");
-const skybox_back = require("./static/skybox/back.png");
+const skybox_top = require("./public/skybox/top.png");
+const skybox_bottom = require("./public/skybox/bottom.png");
+const skybox_left = require("./public/skybox/left.png");
+const skybox_right = require("./public/skybox/right.png");
+const skybox_front = require("./public/skybox/front.png");
+const skybox_back = require("./public/skybox/back.png");
 const loader = new THREE.CubeTextureLoader();
 
 const textureCube = loader.load([
