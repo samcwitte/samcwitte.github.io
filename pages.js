@@ -3,6 +3,8 @@ console.log("pages.js is loading...");
 document.addEventListener('DOMContentLoaded', function() {
     const expandLinks = document.querySelectorAll('.expand-link');
     const sidebar = document.getElementById('sidebar');
+    const toggleButton = document.getElementById('toggleSidebar');
+    const infoText = document.getElementById('info');
 
     expandLinks.forEach(link => {
         link.addEventListener('click', function(event) {
@@ -11,8 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.querySelector('.close-btn').addEventListener('click', function() {
-        sidebar.classList.remove('expanded');
+    toggleButton.addEventListener('click', function() {
+        if (sidebar.classList.contains('hidden')) {
+            sidebar.classList.remove('hidden');
+            infoText.classList.remove('hidden');
+            toggleButton.textContent = '[ hide ]';  // Change the button text to Hide
+        } else {
+            sidebar.classList.add('hidden');
+            infoText.classList.add('hidden');
+            toggleButton.textContent = '[ show ]';  // Change the button text to Show
+        }
     });
 
 });

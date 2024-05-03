@@ -5,12 +5,13 @@ body, html {
   font-family: 'Source Code Pro', monospace;
   color: white;
   background-color: #282828;
+  transition: margin-left 0.3s ease;
 }
 
 #sidebar {
   position: relative;
-  left: 0;
-  top: 0;
+  left: 0px;
+  top: 0px;
   width: 360px;
   height: 100%;
   background-color: rgba(128, 128, 128, 0.108);
@@ -19,11 +20,24 @@ body, html {
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   letter-spacing: 0px;
-  transition: width 0.8s cubic-bezier(.33, 0, .25, 1);
-  -webkit-transition: width 0.8s cubic-bezier(.33, 0, .25, 1);
-  -moz-transition: width 0.8s cubic-bezier(.33, 0, .25, 1);
-  -ms-transition: width 0.8s cubic-bezier(.33, 0, .25, 1);
-  -o-transition: width 0.8s cubic-bezier(.33, 0, .25, 1);
+  transform: translateX(0);
+  transition: transform 0.8s cubic-bezier(.33, 0, .25, 1);
+  -webkit-transition: transform 0.8s cubic-bezier(.33, 0, .25, 1);
+  -moz-transition: transform 0.8s cubic-bezier(.33, 0, .25, 1);
+  -ms-transition: transform 0.8s cubic-bezier(.33, 0, .25, 1);
+  -o-transition: transform 0.8s cubic-bezier(.33, 0, .25, 1);
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+}
+
+#sidebar.hidden {
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
 }
 
 #sidebar.expanded {
@@ -35,8 +49,14 @@ body, html {
   -o-transition: width 0.8s cubic-bezier(.49,.01,.15,1);
 }
 
-#sidebar button {
+#toggleSidebar {
+  position: absolute;
+  font-size: 16px;
+  width: 120px;
+  margin-right: -130px;
+  top: 10px;
   border: none;
+  z-index: 2;
   background-color: rgba(0, 0, 0, 0.5);
   color:rgba(255, 255, 255);
   padding: 8px 15px;
@@ -44,7 +64,7 @@ body, html {
   font-family: "Source Code Pro", monospace;
 }
 
-#sidebar button:hover {
+#toggleSidebar :hover {
   background-color:rgba(128, 128, 128, 0.8);
 }
 
@@ -150,6 +170,20 @@ body, html {
   z-index: 100;
   display:block;
   color:rgba(255, 255, 255, 0.675);
+  transform: translateX(0);
+  transition: transform 0.8s cubic-bezier(.33, 0, .25, 1);
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+}
+
+#info.hidden {
+  transform: translateX(110%);
+  -webkit-transform: translateX(110%);
+  -moz-transform: translateX(110%);
+  -ms-transform: translateX(110%);
+  -o-transform: translateX(110%);
 }
 
 #canRotate {
