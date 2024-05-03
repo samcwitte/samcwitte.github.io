@@ -136,13 +136,16 @@ controls.autoRotateSpeed = 0.05;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-function onMouseClick(event) {
+function handleInteraction(event) {
   // Calculate mouse position in normalized device coordinates (-1 to +1) for both components
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  // mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  // mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  const x = (event.clientX / window.innerWidth) * 2 - 1;
+  const y = -(event.clientY / window.innerHeight) * 2 + 1;
 
   // Update the picking ray with the camera and mouse position
-  raycaster.setFromCamera(mouse, camera);
+  // raycaster.setFromCamera(mouse, camera);
+  raycaster.setFromCamera({ x, y }, camera);
 
   // Calculate objects intersecting the picking ray
   const intersects = raycaster.intersectObjects(scene.children, true);
@@ -152,10 +155,12 @@ function onMouseClick(event) {
   }
 }
 
-window.addEventListener('click', onMouseClick);
+window.addEventListener('click', handleInteraction);
+window.addEventListener('touchstart', handleInteraction);
+window.addEventListener('pointerdown', handleInteraction);
 
 function focusOnObject(object) {
-  console.log( "Clicked on ", object );
+  //console.log( "Clicked on ", object );
   if (object.name === "moon") { return; }
   camera.lookAt(object.getWorldPosition);
 
