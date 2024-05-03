@@ -149,5 +149,25 @@ body, html {
   text-align: right;
   z-index: 100;
   display:block;
-  color:rgba(255, 255, 255, 0.5);
+  color:rgba(255, 255, 255, 0.675);
+}
+
+#canRotate {
+  /* white-space: nowrap; */
+  position: relative;
+  display: inline-flex;
+  transform-origin: center center;
+  transition: transform 0.5s ease;
+  -webkit-transition: transform 0.5s ease;
+  -moz-transition: transform 0.5s ease;
+  -ms-transition: transform 0.5s ease;
+  -o-transition: transform 0.5s ease;
+}
+
+#canRotate:hover {
+  transform: rotate(10deg) rotateY(25deg);
+  -webkit-transform: rotate(10deg) rotateY(25deg);
+  -moz-transform: rotate(10deg) rotateY(25deg);
+  -ms-transform: rotate(10deg) rotateY(25deg);
+  -o-transform: rotate(10deg) rotateY(25deg);
 }

@@ -29,10 +29,27 @@ const planetGeometry = new THREE.SphereGeometry(3, 32, 32);
 const planetMaterial = new THREE.MeshStandardMaterial( {
   map: new THREE.TextureLoader().load(planetTexture),
 } );
-
 const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial);
+planetMesh.name = "planet";
 planetMesh.rotation.set(23.5 * THREE.MathUtils.DEG2RAD, 0, 0);
 scene.add(planetMesh);
+
+// Moon (default: Moon)
+const moonOrbitRadius = 16;
+const moonOrbitSpeed = -0.001;
+let moonOrbitAngle = 0;
+const moonTexture = require("./public/moon-texture.jpg");
+const moonGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+const moonMaterial = new THREE.MeshStandardMaterial( {
+  map: new THREE.TextureLoader().load(moonTexture),
+} );
+const moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
+moonMesh.name = "moon";
+moonMesh.position.set(16, 0, 0);
+moonMesh.lookAt(planetMesh.position);
+moonMesh.rotateY(-3.14159/2);
+scene.add(moonMesh);
+
 
 // Star (default: Sun)
 const starTexture = require("./public/star-texture.jpg");
@@ -44,6 +61,7 @@ const starMaterial = new THREE.MeshStandardMaterial( {
   map: new THREE.TextureLoader().load(starTexture)
 } );
 const starMesh = new THREE.Mesh(starGeometry, starMaterial);
+starMesh.name = "star";
 starMesh.position.set(0, 0, 500);
 scene.add(starMesh);
 
@@ -84,7 +102,7 @@ scene.background = textureCube;
 
 // Camera
 const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 5000);
-camera.position.set(defaultCameraPosition);
+camera.position.copy(defaultCameraPosition);
 camera.lookAt(planetMesh.getWorldPosition);
 scene.add(camera);
 
@@ -137,7 +155,10 @@ function onMouseClick(event) {
 window.addEventListener('click', onMouseClick);
 
 function focusOnObject(object) {
-  console.log( "click beginning" );
+  console.log( "Clicked on ", object );
+  if (object.name === "moon") { return; }
+  camera.lookAt(object.getWorldPosition);
+
   const targetPosition = new THREE.Vector3().setFromMatrixPosition(object.matrixWorld);
   const currentCameraPosition = camera.position.clone();
   let radius;
@@ -173,6 +194,8 @@ function focusOnObject(object) {
     .onUpdate(() => controls.update())
     .start();
 
+  controls.update();
+
   console.log( "click end" );
   //camera.position.copy(currentCameraPosition);
 }
@@ -182,18 +205,9 @@ function focusOnObject(object) {
 // Key Listener
 window.addEventListener('keydown', function(event) {
   if (event.key === 'r' || event.key === 'R') {
-      resetCamera();
+    focusOnObject(planetMesh);
   }
 });
-
-function resetCamera() {
-  camera.position.copy(defaultCameraPosition);
-  camera.lookAt(planetMesh.getWorldPosition);
-
-  controls.target.set(0, 0, 0);
-  controls.update(); // Needed to re-render the scene with new controls
-}
-
 
 
 // Resize
@@ -211,7 +225,7 @@ window.addEventListener("resize", () => {
 
 
 
-resetCamera();
+//resetCamera();
 focusOnObject(planetMesh);
 // Main Loop
 const loop = (time) => {
@@ -222,9 +236,15 @@ const loop = (time) => {
   lastFrameTime = time - (delta % frameDelay);
 
   TWEEN.update();
-
   controls.update();
   planetMesh.rotateY(0.0005);
+
+  moonOrbitAngle += moonOrbitSpeed;
+  moonMesh.position.x = planetMesh.position.x + moonOrbitRadius * Math.cos(moonOrbitAngle);
+  moonMesh.position.z = planetMesh.position.z + moonOrbitRadius * Math.sin(moonOrbitAngle);
+  moonMesh.lookAt(planetMesh.position);
+  moonMesh.rotateY(-3.14159/2);
+
   //renderer.render(scene, camera);
   composer.render(time);
 }

@@ -1,3 +1,5 @@
+console.log("pages.js is loading...");
+
 document.addEventListener('DOMContentLoaded', function() {
     const expandLinks = document.querySelectorAll('.expand-link');
     const sidebar = document.getElementById('sidebar');
@@ -15,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-function toggleDropdown(event, id) {
+window.toggleDropdown = function(event, id) {
     event.preventDefault();
     var dropdown = document.getElementById(id);
     var toggle = event.target.querySelector('.toggle');
