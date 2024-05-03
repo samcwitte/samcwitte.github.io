@@ -17,11 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (sidebar.classList.contains('hidden')) {
             sidebar.classList.remove('hidden');
             infoText.classList.remove('hidden');
-            toggleButton.textContent = '[ hide ]';  // Change the button text to Hide
+            toggleButton.textContent = '[ hide ]';
+            toggleButton.classList.remove('hidden');
         } else {
             sidebar.classList.add('hidden');
             infoText.classList.add('hidden');
-            toggleButton.textContent = '[ show ]';  // Change the button text to Show
+            toggleButton.textContent = '[ show ]';
+            toggleButton.classList.add('hidden');
         }
     });
 

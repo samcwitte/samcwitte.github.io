@@ -68,6 +68,10 @@ body, html {
   #toggleSidebar {
       margin-right: 0px;
   }
+
+  #toggleSidebar.hidden {
+    margin-right: -130px;
+  }
 }
 
 #toggleSidebar :hover {
