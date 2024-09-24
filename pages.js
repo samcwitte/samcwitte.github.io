@@ -42,4 +42,27 @@ window.toggleDropdown = function(event, id) {
         dropdown.style.opacity = "1";
         toggle.textContent = ' - ';
     }
+    adjustSidebarWidth();
+}
+
+function adjustSidebarWidth() {
+    const sidebar = document.getElementById('sidebar');
+    const dropdowns = document.querySelectorAll('.dropdown-content');
+    let anyExpanded = false;
+
+    dropdowns.forEach(dropdown => {
+        if (dropdown.style.maxHeight && dropdown.style.maxHeight !== "0px") {
+            anyExpanded = true;
+        }
+    });
+
+    const newWidth = anyExpanded ? '100%' : '20%';
+    gsap.to(sidebar, { duration: 1, width: newWidth });
+}
+
+window.toggleSidebarAndToggleDropdown = function(event, dropdownId) {
+    const sidebar = document.getElementById('sidebar');
+    const newWidth = sidebar.style.width === '100%' ? '20%' : '100%';
+    gsap.to(sidebar, { duration: 1, width: newWidth });
+    toggleDropdown(event, dropdownId);
 }

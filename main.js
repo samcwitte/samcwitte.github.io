@@ -23,6 +23,13 @@ const scene = new THREE.Scene();
 const ambientLight = new THREE.AmbientLight(0x111111);
 scene.add(ambientLight);
 
+// Sun Light
+const sunLight = new THREE.DirectionalLight(0xFFFFFF, 0.5);
+sunLight.intensity = 0.75;
+sunLight.position.set(0, 0, 10);
+sunLight.lookAt(new THREE.Vector3(0, 0, 0));
+scene.add(sunLight);
+
 // Helpers
 // const gridHelper = new THREE.GridHelper(200, 50);
 // scene.add(gridHelper);

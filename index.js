@@ -24,7 +24,7 @@ const sizes = {
 const scene = new THREE.Scene();
 
 // Planet (default: Earth)
-const planetTexture = require("../public/earth-texture.jpg");
+const planetTexture = require("./public/earth-texture.jpg");
 const planetGeometry = new THREE.SphereGeometry(3, 32, 32);
 const planetMaterial = new THREE.MeshStandardMaterial( {
   map: new THREE.TextureLoader().load(planetTexture),
@@ -38,7 +38,7 @@ scene.add(planetMesh);
 const moonOrbitRadius = 16;
 const moonOrbitSpeed = -0.001;
 let moonOrbitAngle = 0;
-const moonTexture = require("../public/moon-texture.jpg");
+const moonTexture = require("./public/moon-texture.jpg");
 const moonGeometry = new THREE.SphereGeometry(0.5, 16, 16);
 const moonMaterial = new THREE.MeshStandardMaterial( {
   map: new THREE.TextureLoader().load(moonTexture),
@@ -52,7 +52,7 @@ scene.add(moonMesh);
 
 
 // Star (default: Sun)
-const starTexture = require("../public/star-texture.jpg");
+const starTexture = require("./public/star-texture.jpg");
 const starGeometry = new THREE.SphereGeometry(25, 32, 32);
 const starMaterial = new THREE.MeshStandardMaterial( {
   emissive: 0xffffff,
@@ -84,12 +84,12 @@ scene.add(ambientLight);
 // const gridHelper = new THREE.GridHelper(200, 50);
 // scene.add(gridHelper);
 
-const skybox_top = require("../public/skybox/top.png");
-const skybox_bottom = require("../public/skybox/bottom.png");
-const skybox_left = require("../public/skybox/left.png");
-const skybox_right = require("../public/skybox/right.png");
-const skybox_front = require("../public/skybox/front.png");
-const skybox_back = require("../public/skybox/back.png");
+const skybox_top = require("./public/skybox/top.png");
+const skybox_bottom = require("./public/skybox/bottom.png");
+const skybox_left = require("./public/skybox/left.png");
+const skybox_right = require("./public/skybox/right.png");
+const skybox_front = require("./public/skybox/front.png");
+const skybox_back = require("./public/skybox/back.png");
 const loader = new THREE.CubeTextureLoader();
 
 const textureCube = loader.load([
@@ -138,14 +138,11 @@ const mouse = new THREE.Vector2();
 
 function handleInteraction(event) {
   // Calculate mouse position in normalized device coordinates (-1 to +1) for both components
-  // mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  // mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  const x = (event.clientX / window.innerWidth) * 2 - 1;
-  const y = -(event.clientY / window.innerHeight) * 2 + 1;
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
   // Update the picking ray with the camera and mouse position
-  // raycaster.setFromCamera(mouse, camera);
-  raycaster.setFromCamera({ x, y }, camera);
+  raycaster.setFromCamera(mouse, camera);
 
   // Calculate objects intersecting the picking ray
   const intersects = raycaster.intersectObjects(scene.children, true);
@@ -155,7 +152,7 @@ function handleInteraction(event) {
   }
 }
 
-//window.addEventListener('click', handleInteraction);
+window.addEventListener('click', handleInteraction);
 //window.addEventListener('touchstart', handleInteraction);
 //window.addEventListener('pointerdown', handleInteraction);
 
