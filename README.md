@@ -7,4 +7,5 @@ Visit it [here](https://samwitte.com/) or at [https://samwitte.com](https://samw
 
 `yarn build` to build (minified) under `dist/`
 
+Make sure `push-dir` is installed with `npm install push-dir`, and then run
 `yarn push-gh-pages` to have whatever is built under `dist/` published with GitHub Pages
