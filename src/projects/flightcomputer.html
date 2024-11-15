@@ -23,8 +23,69 @@
                 <a href="../Sam_Witte_Resume.pdf"><span class="brackets">[</span> resume <span class="brackets">]</span></a>
             </li>
             <br>
-            <div style="text-align: left; padding: 8px; letter-spacing: 2px;">Flight Computer (v1)</div>
-            <div style="text-align: left; padding: 8px; letter-spacing: 2px;">🚧 Under construction 🚧 Please check back soon!</div>
+            <div style="text-align: left; padding: 8px; letter-spacing: 2px;">HPR Flight Computer (v1)</div>
+            <p style="text-align: left; padding: 8px; letter-spacing: 2px;">
+                A PCB designed to allow various Adafruit breakout boards to communicate with a Raspberry Pi Pico during HPR model rocket launches.
+            </p>
+            <h2>Summary / Table of Contents</h2>
+            <p>
+                Throughout this project, I learned more about interfaces such as I²C and SPI. I also improved my PCB layout skills and EDA software familiarity.
+            </p>
+            <img src="../public/images/fc1_soldered.jpg" alt="The soldered flight computer v1">
+            <ul>
+                <li>Initial Circuit Design</li>
+                <li>PCB Layout and Design</li>
+                <li>Choosing Parts and Ordering the PCBs</li>
+                <li>Final Thoughts</li>
+            </ul>
+            <h3>Initial Circuit Design</h3>
+            <p>
+                When first designing this circuit, I started with a list of goals for the project. I knew I wanted one or more sensors to collect data during an HPR (high-powered rocketry) model rocket launch, so I began researching parts.
+            </p>
+            <p>
+                I found all of the sensors used in this project in the form of breakout boards from Adafruit, which are pre-assembled PCBs with the sensors and supporting circuitry on them, with easy-to-access pins.
+            </p>
+            <img src="../public/images/fc1_breadboard.jpg" alt="Circuit designed on breadboard">
+            <h3>PCB Layout and Design</h3>
+            <p>
+                For the PCB design and layout, I used KiCAD. I chose this program because I was already familiar with it, unlike other programs like Autodesk Eagle.
+            </p>
+            <p>
+                The schematic was simple: various pins from each breakout board were connected, along with some LED circuitry. I decided to use small 0603 components out of curiosity to see how difficult they would be to solder by hand (spoiler: it's pretty tough).
+            </p>
+            <img src="../public/images/fc1_schematic.jpg" alt="Flight computer PCB schematic">
+            <h3>Choosing Parts and Ordering the PCBs</h3>
+            <p>
+                All the components were purchased from Digikey. If you're interested in the exact parts used, there's a list in the <a href="https://github.com/samcwitte/flight-pcb-1/blob/main/parts.md">GitHub repository for this project</a>.
+            </p>
+            <p>
+                The PCBs were ordered through JLCPCB, which had a very quick turnaround, and the PCBs arrived just as I designed them.
+            </p>
+            <h3>Final Thoughts</h3>
+            <p>
+                I learned a lot from this project. I brushed up on my Python skills, used three I²C devices on a single bus, and created a final product that I'm proud of.
+            </p>
+            <p>
+                One of the first issues I noticed after assembly was that the micro-USB port on the Pi Pico, used to extract flight data, was inaccessible due to clearance issues.
+            </p>
+            <p>
+                While I consider this project a success, there's definitely room for improvement, and version 2 is already in development.
+            </p>
+            <h3>Update: The Motor Failed</h3>
+            <p>
+                I finally launched a rocket with the flight computer inside, but unfortunately, the motor failed about halfway through its burn!
+            </p>
+            <p>
+                In one of the pictures, you can see the flight computer inside the rocket, with the ~10-inch nosecone almost entirely buried in the ground.
+            </p>
+            <img src="../public/images/fc1_crash0.jpg" alt="My rocket in the ground">
+            <img src="../public/images/fc1_crash1.jpg" alt="The crushed computer">
+            <img src="../public/images/fc1_crash2.jpg" alt="Another view of the crushed computer">
+            <img src="../public/images/fc1_crash3.jpg" alt="Yet another view of the crushed computer">
+            <p>
+                While this crash was unfortunate and a bit disappointing, it provides the perfect opportunity to build a second version with improvements.
+                <br>Version 2 was designed but never manufactured, and version 3 is currently in development, planned to be taken over and completed by the UIowa Aerospace and Rocketry Club by May 2025.
+            </p>
         </ul>
         <div class="footer">&copy; 2024 Sam Witte</div>
     </div>
