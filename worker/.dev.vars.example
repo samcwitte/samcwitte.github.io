@@ -1,0 +1,7 @@
+# Copy to .dev.vars for `npm run dev`. These are Cloudflare's published Turnstile
+# test keys (always pass) and a dry run, so nothing is actually emailed.
+ALLOWED_ORIGINS = "http://localhost:1234"
+TURNSTILE_SECRET = "1x0000000000000000000000000000000AA"
+MAIL_DRY_RUN = "true"
+SMTP_USER = "forms@samwitte.com"
+SMTP_TOKEN = "not-used-in-dry-run"

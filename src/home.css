@@ -1,0 +1,597 @@
+:root {
+    --bg: #f5f4ef;
+    --ink: #1b1e1b;
+    --muted: #6b706a;
+    --line: #dddcd3;
+    --grid: rgba(27, 30, 27, 0.07);
+    --accent: #1f6b47;      /* soldermask green */
+    --accent-ink: #ffffff;
+    --copper: #b8733a;
+    --shadow: rgba(27, 30, 27, 0.28);
+    --sheet: #fdfcf8;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #121513;
+        --ink: #e9ebe6;
+        --muted: #8f968e;
+        --line: #2a2f2b;
+        --grid: rgba(233, 235, 230, 0.05);
+        --accent: #4cb582;
+        --accent-ink: #0d120f;
+        --copper: #d6925a;
+        --shadow: rgba(0, 0, 0, 0.6);
+        --sheet: #1b1f1c;
+    }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    font-family: "Huninn", system-ui, sans-serif;
+    color: var(--ink);
+    background-color: var(--bg);
+    /* faint grid, like an empty layout canvas */
+    background-image: radial-gradient(var(--grid) 1px, transparent 1.2px);
+    background-size: 24px 24px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.page {
+    height: 100dvh;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: clamp(20px, 4vh, 40px) clamp(20px, 5vw, 56px);
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    gap: clamp(16px, 3vh, 32px);
+    overflow: hidden;
+}
+
+/* header */
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+}
+
+.wordmark { font-size: 18px; }
+
+/* main */
+
+.main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+    min-height: 0;
+}
+
+.eyebrow {
+    margin: 0 0 clamp(10px, 2vh, 16px);
+    color: var(--copper);
+    font-size: 15px;
+    letter-spacing: 0.04em;
+}
+
+h1 {
+    margin: 0;
+    font-weight: 400;
+    font-size: clamp(34px, min(4.6vw, 7.5vh), 60px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+.lede {
+    margin: clamp(14px, 2.6vh, 24px) 0 0;
+    max-width: 32em;
+    color: var(--muted);
+    font-size: clamp(16px, 1.3vw, 18px);
+    line-height: 1.6;
+}
+
+.actions {
+    margin-top: clamp(18px, 3.5vh, 32px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+}
+
+.button {
+    display: inline-block;
+    padding: 13px 24px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    text-decoration: none;
+    font-size: 16px;
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+.email {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+}
+
+.email:hover { border-color: var(--ink); }
+
+a:focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 3px;
+}
+
+/* exploded layer stack — stack.js sets --rx, --ry (deg) from the mouse */
+
+.board {
+    margin: 0;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    min-height: 0;
+    perspective: 1600px;
+}
+
+.stack {
+    --rx: 0deg;
+    --ry: 0deg;
+    --gap: clamp(22px, 4.4vh, 44px);   /* space between layers */
+    position: relative;
+    width: min(46%, calc((100dvh - 300px) * 0.5));
+    aspect-ratio: 1;
+    margin: calc(var(--gap) * 5.4) 14% calc(var(--gap) * 0.9) 0;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx)) rotateY(var(--ry)) rotateX(56deg) rotateZ(-38deg);
+    will-change: transform;
+}
+
+.layer {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5%;
+    /* each layer rises and steps back a little, so the ones below peek out */
+    transform: translate3d(0, calc(var(--i) * -5%), calc(var(--i) * var(--gap)));
+    transform-style: preserve-3d;
+    transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* collapsed into a single board until the page has loaded */
+.stack:not(.is-exploded) .layer { transform: translateZ(calc(var(--i) * 2px)); }
+
+.layer-schematic {
+    --i: 0;
+    background: var(--sheet);
+    box-shadow: 0 0 0 1px var(--line), 0 30px 50px -20px var(--shadow);
+}
+
+.layer-schematic img {
+    position: absolute;
+    inset: 4%;
+    width: 92%;
+    height: 92%;
+    mix-blend-mode: multiply;   /* drop the white page so the sheet shows through */
+}
+
+@media (prefers-color-scheme: dark) {
+    .layer-schematic img {
+        filter: invert(1) hue-rotate(180deg) brightness(0.9);
+        mix-blend-mode: screen;
+    }
+}
+
+/* parts on the underside, floating free of any board */
+.layer-parts { --i: 1; }
+
+.layer-parts img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 6px 6px var(--shadow));
+}
+
+.layer-copper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--copper);
+    -webkit-mask: var(--art) center / 100% 100% no-repeat;
+    mask: var(--art) center / 100% 100% no-repeat;
+}
+
+.layer-bottom { --i: 2; }
+.layer-bottom::before { --art: url("public/matrix/bottom_copper.webp"); opacity: 0.55; }
+
+.layer-5v { --i: 3; }
+.layer-5v::before { --art: url("public/matrix/5v_plane.webp"); opacity: 0.32; }
+
+.layer-gnd { --i: 4; }
+.layer-gnd::before { --art: url("public/matrix/gnd_plane.webp"); opacity: 0.32; }
+
+.layer-top { --i: 5; }
+.layer-top::before { --art: url("public/matrix/top_copper.webp"); }
+
+.layer-board {
+    --i: 6;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.layer-board img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+
+/* 16x16 LEDs on a 3 mm pitch: one grid cell per LED, centred on the real footprint.
+   stack.js sets each cell's --w (0..1, how far it's lifted) and --hue. */
+
+.leds {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+    transform-style: preserve-3d;
+}
+
+.cell {
+    --w: 0;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+/* package: 1.76 x 1.64 mm inside a 3 mm cell */
+.led,
+.cell::before {
+    position: absolute;
+    left: 20.7%;
+    top: 22.7%;
+    width: 58.6%;
+    height: 54.6%;
+    pointer-events: none;
+}
+
+.led {
+    background: url("public/matrix/led.png") center / 100% 100%;
+    border-radius: 8%;
+    transform: translateZ(calc(var(--w) * var(--gap) * 0.8));
+}
+
+/* lit die */
+.led::after {
+    content: "";
+    position: absolute;
+    inset: 18% 28%;
+    border-radius: 30%;
+    background: hsl(var(--hue, 0) 100% 62%);
+    box-shadow: 0 0 6px 2px hsl(var(--hue, 0) 100% 60% / 0.8);
+    opacity: min(1, calc(var(--w) * 1.6));
+}
+
+/* shadow left behind on the board */
+.cell::before {
+    content: "";
+    border-radius: 20%;
+    background: rgba(0, 0, 0, 0.55);
+    filter: blur(1.5px);
+    opacity: var(--w);
+}
+
+/* labels sit in each layer's plane, off its right-hand edge */
+.tag {
+    position: absolute;
+    left: 103%;
+    bottom: 4%;
+    white-space: nowrap;
+    color: var(--muted);
+    font-size: 12px;
+    transition: opacity 0.6s ease 0.4s;
+}
+
+.tag::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    margin-right: 7px;
+    vertical-align: middle;
+    background: var(--copper);
+}
+
+.stack:not(.is-exploded) .tag { opacity: 0; transition-delay: 0s; }
+
+.board figcaption {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    color: var(--muted);
+    font-size: 14px;
+    text-align: center;
+}
+
+/* the caption and the hover hint share one slot and cross-fade */
+.caption,
+.hint {
+    grid-area: 1 / 1;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px 5px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(4px);
+    pointer-events: none;
+}
+
+/* drawn with a mask: Parcel 1 can't parse inline <svg> in HTML */
+.hint-cursor {
+    width: 14px;
+    height: 14px;
+    background: var(--ink);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 1.5v11.2l3-2.9 2 4.6 2-.9-2-4.5h4.2z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 1.5v11.2l3-2.9 2 4.6 2-.9-2-4.5h4.2z'/%3E%3C/svg%3E") center / contain no-repeat;
+    animation: hint-cursor 2.4s ease-in-out infinite;
+}
+
+/* the cursor drifts as if sweeping across the board */
+@keyframes hint-cursor {
+    0%, 100% { transform: translate(-2px, 1px); }
+    50%      { transform: translate(3px, -2px); }
+}
+
+.board.show-hint .hint { opacity: 1; transform: none; }
+.board.show-hint .caption { opacity: 0; transform: translateY(-4px); }
+
+/* services */
+
+.services ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 clamp(16px, 2.5vw, 32px);
+    counter-reset: svc;
+}
+
+.services li {
+    counter-increment: svc;
+    padding-top: clamp(12px, 2vh, 18px);
+    border-top: 1px solid var(--line);
+}
+
+.services h2 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 17px;
+}
+
+.services h2::before {
+    content: counter(svc, decimal-leading-zero);
+    margin-right: 10px;
+    color: var(--copper);
+    font-size: 13px;
+}
+
+.services p {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* footer */
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.boards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+}
+
+.boards .label { color: var(--ink); }
+
+.note { white-space: nowrap; }
+
+/* quote dialog */
+
+.quote {
+    width: min(520px, calc(100% - 32px));
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--bg);
+    color: var(--ink);
+    box-shadow: 0 30px 80px -20px var(--shadow);
+}
+
+.quote::backdrop {
+    background: rgba(10, 12, 10, 0.45);
+    backdrop-filter: blur(3px);
+}
+
+.quote[open] { animation: quote-in 0.22s ease-out; }
+
+@keyframes quote-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+}
+
+.quote-form,
+.quote-done {
+    display: grid;
+    gap: 14px;
+    padding: 24px clamp(18px, 4vw, 28px) 26px;
+}
+
+.quote-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quote h2 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.quote-close {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.quote-close:hover { background: var(--line); color: var(--ink); }
+
+.quote-intro,
+.quote-done p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.quote-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.quote label {
+    display: grid;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.quote .optional { color: var(--muted); font-size: 12px; }
+
+.quote input,
+.quote select,
+.quote textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--sheet);
+    color: var(--ink);
+    font: inherit;
+    font-size: 15px;
+}
+
+.quote textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
+
+.quote input::placeholder,
+.quote textarea::placeholder { color: var(--muted); opacity: 0.8; }
+
+.quote input:focus,
+.quote select:focus,
+.quote textarea:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: -1px;
+    border-color: transparent;
+}
+
+.quote [aria-invalid="true"] { border-color: #c4553a; }
+
+/* off-screen rather than display:none, so naive bots still fill it in */
+.quote-hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.quote-turnstile:empty { display: none; }
+
+.quote-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+}
+
+.quote button.button {
+    border: 0;
+    font: inherit;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.quote button.button:disabled { opacity: 0.5; cursor: default; transform: none; filter: none; }
+
+.quote-status {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.quote-status.is-error { color: #c4553a; }
+
+.quote-done { justify-items: start; }
+
+.quote-form[hidden],
+.quote-done[hidden] { display: none; }
+
+/* small screens: stack, and allow scrolling rather than clipping */
+
+@media (max-width: 900px), (max-height: 600px) {
+    .page {
+        height: auto;
+        min-height: 100dvh;
+        overflow: visible;
+        grid-template-rows: none;
+        align-content: start;
+        gap: 48px;
+    }
+
+    .main { grid-template-columns: minmax(0, 1fr); }
+    .stack { width: 52%; }
+    .services ol { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 24px; }
+    .bottom { flex-direction: column; }
+    .note { white-space: normal; }
+}
+
+@media (max-width: 520px) {
+    .services ol { grid-template-columns: minmax(0, 1fr); }
+    .quote-row { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,0 +1,38 @@
+name = "samwitte-forms"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Serve at https://api.samwitte.com — Cloudflare creates the DNS record on first deploy.
+routes = [{ pattern = "api.samwitte.com", custom_domain = true }]
+
+[vars]
+ALLOWED_ORIGINS = "https://samwitte.com,https://www.samwitte.com"
+MAIL_TO = "sam@samwitte.com"
+SMTP_HOST = "smtp.protonmail.ch"
+SMTP_PORT = "587"
+MAIL_DRY_RUN = "false"
+
+# Secrets — set with `npx wrangler secret put <NAME>`, never committed:
+#   SMTP_USER        the Proton address the SMTP token belongs to (also the From address)
+#   SMTP_TOKEN       the Proton SMTP token
+#   TURNSTILE_SECRET the Turnstile widget's secret key
+
+# Per-visitor: 2 submissions a minute. Periods can only be 10 or 60 seconds.
+[[ratelimits]]
+name = "PER_IP_LIMITER"
+namespace_id = "41001"
+  [ratelimits.simple]
+  limit = 2
+  period = 60
+
+# Everyone together: a ceiling in case Turnstile is ever beaten at scale.
+[[ratelimits]]
+name = "GLOBAL_LIMITER"
+namespace_id = "41002"
+  [ratelimits.simple]
+  limit = 10
+  period = 60
+
+[observability]
+enabled = true

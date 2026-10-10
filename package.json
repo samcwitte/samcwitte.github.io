@@ -11,13 +11,12 @@
     "shx": "^0.3.4"
   },
   "scripts": {
-    "start": "parcel index.html",
-    "fix-paths": "node fix-paths.js",
+    "start": "parcel src/index.html",
     "prebuild-dev": "shx rm -rf dist/*",
     "build-dev": "parcel build ./src/index.html --no-minify --public-url ./",
     "prebuild": "shx rm -rf dist/*",
-    "build": "parcel build ./src/index.html --public-url ./ && cp ./src/CNAME dist/ && yarn fix-paths",
-    "push-gh-pages": "push-dir --dir=dist --branch=gh-pages --cleanup --verbose"
+    "build": "parcel build ./src/index.html --public-url ./",
+    "push-gh-pages": "push-dir --dir=dist --remote=pcb --branch=gh-pages --cleanup --verbose"
   },
   "dependencies": {
     "@tweenjs/tween.js": "^23.1.1",

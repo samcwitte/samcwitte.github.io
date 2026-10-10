@@ -1,0 +1,16 @@
+{
+  "name": "samwitte-forms",
+  "private": true,
+  "description": "Cloudflare Worker that receives the quote form on samwitte.com and emails it via Proton SMTP",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "dependencies": {
+    "worker-mailer": "1.2.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.149.0"
+  }
+}
