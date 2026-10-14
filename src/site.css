@@ -450,6 +450,17 @@ h1 {
 
 .event-link:hover::after { transform: translateX(4px); }
 
+.event-figure { margin: 0; }
+
+.event-figure figcaption {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: right;
+}
+
+.event-figure figcaption a { color: inherit; }
+
 .event-photo {
     width: 176px;
     aspect-ratio: 4 / 3;
@@ -598,5 +609,6 @@ h1 {
     .event::before { left: -28px; width: 14px; height: 14px; top: 26px; }
     .event-card { grid-template-columns: minmax(0, 1fr); padding: 18px; }
     .event-photo { grid-row: 1; width: 100%; }
+    .event-figure { grid-row: 1; }
     .gallery { grid-template-columns: minmax(0, 1fr); }
 }
