@@ -41,7 +41,7 @@ yarn start      # serves src/ at http://localhost:8080
 
 **Timeline events.** In `src/portfolio/index.html`, copy an existing `<li class="event">`.
 The comment above the timeline explains each field. Events go newest first, ordered by
-when they ended. The `data-type` sets the colour and label: `job`, `internship`,
+when they ended. The `data-type` sets the colour and label: `job`, `freelance`, `internship`,
 `research`, `teaching`, `project`, `hackathon`, or `coursework`. The colours are the
 `--t-*` tokens at the top of `src/site.css`. The photo and the "Read more" link are both
 optional.

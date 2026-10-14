@@ -12,6 +12,7 @@
     --shadow: rgba(27, 30, 27, 0.28);
     --sheet: #fdfcf8;
     --t-job: #1f6b47;
+    --t-freelance: #5f6f12;
     --t-internship: #2563a8;
     --t-research: #7a4fb5;
     --t-teaching: #0e7a77;
@@ -34,6 +35,7 @@
         --shadow: rgba(0, 0, 0, 0.6);
         --sheet: #1b1f1c;
         --t-job: #4cb582;
+        --t-freelance: #b9cc55;
         --t-internship: #6ea8ef;
         --t-research: #b28ce8;
         --t-teaching: #4cc3bf;
@@ -338,6 +340,7 @@ h1 {
 /* timeline: each event sets data-type, which picks its colour */
 
 .event[data-type="job"]        { --type: var(--t-job); }
+.event[data-type="freelance"]  { --type: var(--t-freelance); }
 .event[data-type="internship"] { --type: var(--t-internship); }
 .event[data-type="research"]   { --type: var(--t-research); }
 .event[data-type="teaching"]   { --type: var(--t-teaching); }
