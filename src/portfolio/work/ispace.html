@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avionics intern, ispace U.S. — Sam Witte</title>
+    <meta name="description" content="Ten weeks on ground support hardware for the Apex 1.0 lunar lander.">
+    <link rel="icon" href="../../public/icon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../site.css">
+</head>
+<body>
+    <div class="page">
+        <header class="top">
+            <a class="wordmark" href="../../">Sam Witte</a>
+            <nav class="nav" aria-label="Site">
+                <a href="../../pcb/">PCB design</a>
+                <a href="../">Portfolio</a>
+                <a href="../../Sam_Witte_Resume.pdf">Résumé</a>
+            </nav>
+        </header>
+
+        <main class="article">
+            <header>
+                <p class="eyebrow"><a href="../">Portfolio</a> / Work experience</p>
+                <h1>Avionics intern, ispace U.S.</h1>
+                <p class="lede">Ten weeks on ground support hardware for the Apex 1.0 lunar lander.</p>
+            </header>
+
+            <div class="prose">
+                <p>Links: <a href="https://ispace-inc.com/">ispace website</a> &middot; <a href="https://ispace-us.com/">ispace U.S. website</a></p>
+
+                <h2>Internship overview</h2>
+                <p>From their website, ispace is "a lunar exploration company with a vision to extend human presence into outer space."</p>
+                <p>During my time at ispace U.S., the sole focus was on their <a href="https://ispace-us.com/#apex">Apex 1.0 lander</a>. The majority of my 10 weeks was spent working on three main projects:</p>
+                <ul>
+                    <li><a href="#gse1">Schematic capture, layout, parts procurement, and more on a GSE (ground support equipment) PCB</a></li>
+                    <li><a href="#gse2">Another, different, GSE PCB</a></li>
+                    <li><a href="#layout">The PCB layout of a much larger and complex project</a></li>
+                </ul>
+                <p>While I did learn a lot and complete a few smaller projects, I think that a 12- or semester-long internship would have been much more insightful and fulfilling to me.</p>
+
+                <h2 id="gse1">Interface GSE 1</h2>
+                <p>My first project at ispace was working on a ground support PCB for interfacing with other development and flight-like PCBs.</p>
+                <p>The main purpose of my GSE board was to connect to any of the development boards to be able to simulate them being on the lander.</p>
+                <p>The order of operations for the project went something like this:</p>
+                <ol>
+                    <li>Create a set of requirements</li>
+                    <li>Compile a list of parts I might need</li>
+                    <li>Begin schematic capture</li>
+                    <li>Review completed schematic draft</li>
+                    <li>Begin PCB layout</li>
+                    <li>Review completed layout draft</li>
+                    <li>Go back and make any necessary changes to schematic or layout</li>
+                    <li>Write ICD (Interface Control Document) &mdash; this is sort of like an internal-use user's manual</li>
+                    <li>Write Bringup document &mdash; this is a document which runs through tests to ensure the board works as intended</li>
+                    <li>Generate BOM (bill of materials)</li>
+                    <li>Receive quotes from manufacturers</li>
+                    <li><s>notice a very small but important bug with the layout and fix it</s></li>
+                    <li>Receive new quotes from manufacturers</li>
+                    <li>Order the boards!</li>
+                </ol>
+                <p>For the requirements, I wasn't given a whole lot of information. My mentor and I went over what we wanted the end product to look like, and I set out on designing it.</p>
+                <p>The requirements mostly consisted of certain necessary connectors (driven by other boards that would connect to this one) and features, such as an LVDS override switch.</p>
+
+                <h2 id="gse2">Interface GSE 2</h2>
+                <p>The main purpose of this board was to emulate different dev- and flight-like boards so that we didn't need to assemble the entire flight hardware suite in order to test one CCA.</p>
+                <p>One of the main jumps in complexity of this project over my first project was the addition of an MCU. We needed lots of I/O, as well as interoperability with already-stocked programmers for ease of use and efficiency.</p>
+                <p>Luckily, ispace had a few MCUs they had used in previous projects, so after comparing those options, I found one that fit all of my needs.</p>
+                <p>After looking through the selected MCU's datasheet for a while, I began to pick which I/O pins would be connected to other pins on the board. Throughout the project, this would be a common task to come back to, as things change slightly.</p>
+                <p>Similar to my first project, I had a slight jump start with the schematic, since the connector I'd be interfacing with was common amongst other boards.</p>
+
+                <h2 id="layout">Dummy Network Interface Card</h2>
+                <p>The main purpose of this board was to act as a test board for the fully-featured version of itself. This means the FPGA and different subcircuits were purposefully removed for this board.</p>
+                <p>This CCA's schematic was completed by ispace's U.S. avionics lead. My task was to work on the PCB layout.</p>
+                <p>Unfortunately, by the end of my internship, due to other projects taking priority over this one, I was only able to briefly work on this.</p>
+                <p><i>Fortunately</i>, I was able to group different components into some areas such as PCIe circuitry, M.2 connector circuitry, and other subcircuits. I believe this will make the next person's work on this quicker, at least initially.</p>
+            </div>
+
+            <nav class="pager" aria-label="Back"><a href="../">&larr; Back to the portfolio</a></nav>
+        </main>
+
+        <footer class="bottom">
+            <span>&copy; 2026 Sam Witte</span>
+            <nav aria-label="Contact">
+                <a href="mailto:sam@samwitte.com">sam@samwitte.com</a>
+                <a href="https://linkedin.com/in/samwitte/">LinkedIn</a>
+                <a href="https://github.com/samcwitte">GitHub</a>
+            </nav>
+        </footer>
+    </div>
+</body>
+</html>
