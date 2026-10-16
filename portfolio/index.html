@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — Sam Witte</title>
+    <meta name="description" content="Sam Witte's portfolio: Stratolaunch, internships, personal projects, and university projects.">
+    <link rel="icon" href="../public/icon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+    <div class="page">
+        <header class="top">
+            <a class="wordmark" href="../">Sam Witte</a>
+            <nav class="nav" aria-label="Site">
+                <a href="../pcb/">PCB design</a>
+                <a href="./" aria-current="page">Portfolio</a>
+                <a href="../Sam_Witte_Resume.pdf">Résumé</a>
+            </nav>
+        </header>
+
+        <main class="portfolio">
+            <section class="intro">
+                <p class="eyebrow">Portfolio</p>
+                <h1>Things I've built, and where I've built them.</h1>
+                <p class="lede">
+                    I'm an avionics engineer at <a href="work/stratolaunch.html">Stratolaunch</a>,
+                    with an electrical engineering degree from the University of Iowa.
+                    I like anything that needs a circuit board, from rocket flight computers to keyboards,
+                    and I take on <a href="../pcb/">freelance PCB design</a> on the side.
+                    Away from the bench: video games, gardening, driving, learning Japanese, and keeping freshwater fish and shrimp.
+                </p>
+                <div class="links">
+                    <a class="button" href="../Sam_Witte_Resume.pdf">Résumé</a>
+                    <a class="underline" href="mailto:sam@samwitte.com">sam@samwitte.com</a>
+                    <a class="underline" href="https://linkedin.com/in/samwitte/">LinkedIn</a>
+                </div>
+            </section>
+
+            <!--
+                Newest first. To add an event, copy one <li> and set:
+                  id         short anchor, e.g. "flight-computer" (link to it with ../portfolio/#flight-computer)
+                  data-type  job | freelance | internship | research | teaching | project | hackathon | coursework
+                             (colours live in site.css as --t-<type>)
+                  <time>     datetime="YYYY-MM" for machines, any wording for people
+                Photo and "Read more" link are optional: delete either line if there isn't one.
+                Photos go in images/thumbs/ at 640x480 or so.
+            -->
+            <ol class="timeline" aria-label="Timeline">
+                <li class="event" id="stratolaunch" data-type="job">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">Stratolaunch</h2>
+                            <p class="event-meta"><span class="event-type">Full-time</span> <time datetime="2025-07">July 2025 – present</time></p>
+                            <p class="event-desc">Avionics Engineer I on Talon-A, a reusable hypersonic test vehicle. Avionics design lead on a major vehicle rework, on the avionics console in mission control for 10+ flights, and runway recovery lead for 5+ recoveries.</p>
+                            <a class="event-link" href="work/stratolaunch.html">Read more</a>
+                        </div>
+                        <figure class="event-figure">
+                            <img class="event-photo" src="images/thumbs/stratolaunch.webp" width="640" height="480" alt="Talon-A on a dry lakebed" loading="lazy">
+                            <figcaption>Photo: <a href="https://www.stratolaunch.com/">Stratolaunch</a></figcaption>
+                        </figure>
+                    </div>
+                </li>
+
+                <li class="event" id="led-matrix" data-type="project">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">RGB LED matrix</h2>
+                            <p class="event-meta"><span class="event-type">Project</span> <time datetime="2026-06">June 2026 – present</time></p>
+                            <p class="event-desc">A self-contained LED panel with the controller on the board. The 16&times;16 v0 prototype is built and running; v1 grows it to 32&times;32 at 4 mm pitch with 20 V USB-PD and a motion sensor for tilt-reactive animations.</p>
+                            <a class="event-link" href="projects/ledmatrix.html">Read more</a>
+                        </div>
+                        <img class="event-photo" src="images/thumbs/led-matrix.webp" width="640" height="480" alt="3D render of the LED matrix board" loading="lazy">
+                    </div>
+                </li>
+
+                <li class="event" id="freelance-wearable" data-type="freelance">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">Freelance hardware engineer</h2>
+                            <p class="event-meta"><span class="event-type">Freelance</span> <time datetime="2026-04">April – August 2026</time></p>
+                            <p class="event-desc">A compact consumer wearable, under NDA. I designed the 6-layer PCBA from concept through multiple prototype revisions, shrank the first prototype by over 40% while keeping or improving all of its functionality, and built the symbols and footprints for parts that had none.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="event" id="iot" data-type="coursework">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">Internet of Things final project</h2>
+                            <p class="event-meta"><span class="event-type">Coursework</span> <time datetime="2024-08">August – December 2024</time></p>
+                            <p class="event-desc">ECE:5550 at the University of Iowa.</p>
+                            <a class="event-link" href="school/projects.html#iot">Read more</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="event" id="senior-design" data-type="coursework">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">Senior design capstone</h2>
+                            <p class="event-meta"><span class="event-type">Coursework</span> <time datetime="2024-01">January – December 2024</time></p>
+                            <p class="event-desc">The ECE:4880/4890 capstone at the University of Iowa.</p>
+                            <a class="event-link" href="school/projects.html#senior-design">Read more</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="event" id="ta" data-type="teaching">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">Teaching assistant (4x)</h2>
+                            <p class="event-meta"><span class="event-type">Teaching</span> <time datetime="2023-08">Fall 2023 – Fall 2024</time></p>
+                            <p class="event-desc">Teaching assistant at the University of Iowa through my last three semesters.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="event" id="ispace" data-type="internship">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">ispace U.S.</h2>
+                            <p class="event-meta"><span class="event-type">Internship</span> <time datetime="2024-06">June – August 2024</time></p>
+                            <p class="event-desc">Ten weeks on the Apex 1.0 lunar lander: schematics and layout for two ground support boards, plus early layout on a network interface test card.</p>
+                            <a class="event-link" href="work/ispace.html">Read more</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="event" id="portfolio-2024" data-type="project">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">The 2024 version of this site</h2>
+                            <p class="event-meta"><span class="event-type">Project</span> <time datetime="2024-05">May 2024</time></p>
+                            <p class="event-desc">A three.js Sun, Earth, and Moon as the homepage, with GSAP animation and a long fight with Parcel and Yarn.</p>
+                        </div>
+                        <img class="event-photo" src="images/thumbs/portfolio-2024.webp" width="640" height="480" alt="The Earth and Moon from the old three.js homepage" loading="lazy">
+                    </div>
+                </li>
+
+                <li class="event" id="embedded" data-type="coursework">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">Embedded systems final project</h2>
+                            <p class="event-meta"><span class="event-type">Coursework</span> <time datetime="2024-01">January – May 2024</time></p>
+                            <p class="event-desc">ECE:3350 at the University of Iowa.</p>
+                            <a class="event-link" href="school/projects.html#embedded">Read more</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="event" id="tracers" data-type="research">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">TRACERS research group</h2>
+                            <p class="event-meta"><span class="event-type">Research</span> <time datetime="2023-02">February 2023 – January 2024</time></p>
+                            <p class="event-desc">Undergraduate computer engineer with the TRACERS research group at the University of Iowa.</p>
+                            <a class="event-link" href="work/internships.html#tracers">Read more</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="event" id="hackuiowa" data-type="hackathon">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">HackUIowa 2023: Dubious Studio</h2>
+                            <p class="event-meta"><span class="event-type">Hackathon</span> <time datetime="2023-10">October 2023</time></p>
+                            <p class="event-desc">An AI-assisted drawing program built in PyQt6 in 24 hours, with Max and Sirena.</p>
+                            <a class="event-link" href="projects/hackuiowa2023.html">Read more</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="event" id="flight-computer" data-type="project">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">HPR flight computer</h2>
+                            <p class="event-meta"><span class="event-type">Project</span> <time datetime="2023">2023</time></p>
+                            <p class="event-desc">A board that ties Adafruit sensors to a Raspberry Pi Pico to log high-power rocket flights. Its first launch ended nose-first in the dirt when the motor failed.</p>
+                            <a class="event-link" href="projects/flightcomputer.html">Read more</a>
+                        </div>
+                        <img class="event-photo" src="images/thumbs/flightcomputer.webp" width="640" height="480" alt="The assembled flight computer board" loading="lazy">
+                    </div>
+                </li>
+
+                <li class="event" id="ssc" data-type="internship">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">SSC Engineering, Inc.</h2>
+                            <p class="event-meta"><span class="event-type">Internship</span> <time datetime="2021-12">December 2021 – January 2022, May – August 2022</time></p>
+                            <p class="event-desc">MEPFP electrical intern: electrical design for building systems, over two stints.</p>
+                            <a class="event-link" href="work/internships.html#ssc">Read more</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="event" id="renders" data-type="project">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">Blender renders</h2>
+                            <p class="event-meta"><span class="event-type">Project</span> <time datetime="2022-07">July 2022</time></p>
+                            <p class="event-desc">The Earth in Blender, with NASA textures and a procedural starfield colored after the Hertzsprung–Russell diagram.</p>
+                        </div>
+                        <img class="event-photo" src="images/thumbs/renders.webp" width="640" height="480" alt="Blender render of the Earth" loading="lazy">
+                    </div>
+                </li>
+
+                <li class="event" id="crypto-counter" data-type="project">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">Crypto counter</h2>
+                            <p class="event-meta"><span class="event-type">Project</span> <time datetime="2021-06">June 2021</time></p>
+                            <p class="event-desc">A Raspberry Pi Zero W and two 14-segment displays ticking up my mining earnings in real time.</p>
+                            <a class="event-link" href="projects/cryptocounter.html">Read more</a>
+                        </div>
+                        <img class="event-photo" src="images/thumbs/cryptocounter.webp" width="640" height="480" alt="The 14-segment displays counting up" loading="lazy">
+                    </div>
+                </li>
+
+                <li class="event" id="keyboard" data-type="project">
+                    <div class="event-card">
+                        <div>
+                            <h2 class="event-title">Custom mechanical keyboard</h2>
+                            <p class="event-meta"><span class="event-type">Project</span> <time datetime="2020-04">April 2020</time></p>
+                            <p class="event-desc">A 70% keyboard: PCB in KiCad, plate and anodized aluminum case in Fusion 360.</p>
+                            <a class="event-link" href="projects/keyboard.html">Read more</a>
+                        </div>
+                        <img class="event-photo" src="images/thumbs/keyboard.webp" width="640" height="480" alt="Render of the keyboard" loading="lazy">
+                    </div>
+                </li>
+            </ol>
+        </main>
+
+        <footer class="bottom">
+            <span>&copy; 2026 Sam Witte</span>
+            <nav aria-label="Contact">
+                <a href="mailto:sam@samwitte.com">sam@samwitte.com</a>
+                <a href="https://linkedin.com/in/samwitte/">LinkedIn</a>
+                <a href="https://github.com/samcwitte">GitHub</a>
+            </nav>
+        </footer>
+    </div>
+</body>
+</html>
