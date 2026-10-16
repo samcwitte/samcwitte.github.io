@@ -1,6 +1,5 @@
 // "Request a quote" opens a form in a dialog and posts it to the Cloudflare
 // Worker in /worker. Without JS the button is still a plain mailto link.
-// Parcel 1's minifier can't parse ?. or ??, so this sticks to older syntax.
 (() => {
     const LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname);
 

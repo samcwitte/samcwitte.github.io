@@ -228,21 +228,21 @@ a:focus-visible {
     position: absolute;
     inset: 0;
     background: var(--copper);
-    -webkit-mask: var(--art) center / 100% 100% no-repeat;
-    mask: var(--art) center / 100% 100% no-repeat;
+    -webkit-mask: center / 100% 100% no-repeat;
+    mask: center / 100% 100% no-repeat;
 }
 
 .layer-bottom { --i: 2; }
-.layer-bottom::before { --art: url("public/matrix/bottom_copper.webp"); opacity: 0.55; }
+.layer-bottom::before { -webkit-mask-image: url("public/matrix/bottom_copper.webp"); mask-image: url("public/matrix/bottom_copper.webp"); opacity: 0.55; }
 
 .layer-5v { --i: 3; }
-.layer-5v::before { --art: url("public/matrix/5v_plane.webp"); opacity: 0.32; }
+.layer-5v::before { -webkit-mask-image: url("public/matrix/5v_plane.webp"); mask-image: url("public/matrix/5v_plane.webp"); opacity: 0.32; }
 
 .layer-gnd { --i: 4; }
-.layer-gnd::before { --art: url("public/matrix/gnd_plane.webp"); opacity: 0.32; }
+.layer-gnd::before { -webkit-mask-image: url("public/matrix/gnd_plane.webp"); mask-image: url("public/matrix/gnd_plane.webp"); opacity: 0.32; }
 
 .layer-top { --i: 5; }
-.layer-top::before { --art: url("public/matrix/top_copper.webp"); }
+.layer-top::before { -webkit-mask-image: url("public/matrix/top_copper.webp"); mask-image: url("public/matrix/top_copper.webp"); }
 
 .layer-board {
     --i: 6;
