@@ -1,5 +1,1 @@
-.cache
-dist/
 node_modules/
-dist/*
-fix-paths.js
