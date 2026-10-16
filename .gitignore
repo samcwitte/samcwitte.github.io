@@ -1,5 +1,4 @@
-.cache
-dist/
 node_modules/
-dist/*
-fix-paths.js
+dist/
+.parcel-cache/
+.cache/
