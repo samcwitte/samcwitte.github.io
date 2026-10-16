@@ -48,7 +48,8 @@ optional.
 
 **Write-ups.** Copy an existing page in the same folder, so the header, footer, and
 relative paths (`../../site.css` and so on) stay right, then link to it from its timeline
-event.
+event. When you change a write-up, update the "Last updated" line under its intro (both the
+`datetime` attribute and the visible text).
 
 **Images.** Keep them small. Use WebP where possible, about 1600 px wide for full-size
 images and 640x480 for timeline thumbnails.
