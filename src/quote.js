@@ -14,7 +14,7 @@
             siteKey: '0x4AAAAAAFTPNs2RRN9q9YUF',
         };
 
-    const FALLBACK = 'sam@samwitte.com';
+    const FALLBACK = 'pcb@samwitte.com';
 
     const dialog = document.querySelector('dialog.quote');
     const opener = document.querySelector('[data-quote]');
