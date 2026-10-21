@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGB LED matrix — Sam Witte</title>
+    <meta name="description" content="A self-contained addressable RGB LED panel. Unlike HUB75 panels, which need an external controller constantly scanning rows, the controller lives on the board: plug in USB-C and it runs.">
+    <link rel="icon" href="../../public/icon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../site.css">
+</head>
+<body>
+    <div class="page">
+        <header class="top">
+            <a class="wordmark" href="../../">Sam Witte</a>
+            <nav class="nav" aria-label="Site">
+                <a href="../../pcb/">PCB design</a>
+                <a href="../">Portfolio</a>
+                <a href="../../Sam_Witte_Resume.pdf">Résumé</a>
+            </nav>
+        </header>
+
+        <main class="article">
+            <header>
+                <p class="eyebrow"><a href="../">Portfolio</a> / Personal projects</p>
+                <h1>RGB LED matrix</h1>
+                <p class="lede">A self-contained addressable RGB LED panel. Unlike HUB75 panels, which need an external controller constantly scanning rows, the controller lives on the board: plug in USB-C and it runs.</p>
+                <p class="updated">Last updated <time datetime="2026-10-14">October 14, 2026</time></p>
+            </header>
+
+            <div class="prose">
+                <figure>
+                    <img src="../images/led-matrix-3d.webp" width="1600" height="900" alt="3D render of the 16 by 16 LED matrix board">
+                    <figcaption>The 16&times;16 v0 in KiCad's 3D viewer.</figcaption>
+                </figure>
+                <p class="notice">v0 was a prototype: the boards arrived, and it runs. v1, a bigger and more capable panel, is in the works.</p>
+
+                <h2 id="hardware">v0 hardware</h2>
+                <ul>
+                    <li><strong>256 LEDs</strong> in a 16&times;16 grid at 3&nbsp;mm pitch: XL-1615RGBC-2812B-S, 1.6&nbsp;&times;&nbsp;1.5&nbsp;mm and WS2812B-compatible.</li>
+                    <li><strong>Seeed XIAO ESP32-C6</strong> on the back, hand-soldered.</li>
+                    <li><strong>Two data chains</strong> of 128 LEDs on two GPIOs, driven by the ESP32's RMT peripheral. That's about 250&nbsp;fps: 128 &times; 24 bits at 800&nbsp;kbps, plus a 200&nbsp;&micro;s reset.</li>
+                    <li><strong>5&nbsp;V over USB-C</strong>, with 3.3&nbsp;V logic from the onboard regulator.</li>
+                    <li><strong>4 layers</strong>, with full 5&nbsp;V and ground planes. The board's layers are what the exploded view on my <a href="../../pcb/">PCB design page</a> is built from.</li>
+                </ul>
+
+                <h2 id="power">v0 power budget</h2>
+                <p>Each LED is set to 5&nbsp;mA per channel, so full white across the panel would draw about 3.84&nbsp;A. That's more than USB-C's 5&nbsp;V/3&nbsp;A budget, so brightness is capped in firmware rather than in hardware. The firmware estimates each frame's draw and scales it down only when that frame would go over:</p>
+                <pre><code>I_leds = (sum of all 768 channel bytes / 255) &times; 5 mA + 90 mA static</code></pre>
+                <p>The static term is real: each LED IC draws about 0.35&nbsp;mA even with every channel off.</p>
+                <figure>
+                    <img src="../images/led-matrix-schematic.webp" width="1400" height="1400" alt="The full schematic: the XIAO and bulk capacitors on the left, two zones of 128 LEDs on the right" loading="lazy">
+                    <figcaption>The schematic: two zones of 128 LEDs, one per data chain, with a 100&nbsp;nF capacitor per pair and a 100&nbsp;&micro;F bulk capacitor per 16 LEDs.</figcaption>
+                </figure>
+
+                <h2 id="v0">What v0 was for</h2>
+                <p>v0 was never meant to be a product. It was a prototype, built to answer questions like:</p>
+                <ul>
+                    <li>How bright is 5&nbsp;mA per channel in practice, with and without a diffuser?</li>
+                    <li>Does 3&nbsp;mm pitch read well at desk distance?</li>
+                    <li>Does the per-frame current estimator hold up without visible brightness pumping?</li>
+                    <li>Is hand-soldering the XIAO annoying enough to design around?</li>
+                    <li>Is two chains the right split, or would one (or four) make more sense?</li>
+                </ul>
+                <p>It was also descoped from an earlier modular design, with seamless magnetic tiles and one controller per tile, to make it finishable. That idea is shelved, not abandoned.</p>
+
+                <h2 id="v1">v1, in progress</h2>
+                <p>With v0 running, v1 takes the panel from test board to something you'd want on a desk or a wall:</p>
+                <ul>
+                    <li><strong>32&times;32 LEDs</strong> (1,024 of them) at a 4.0&nbsp;mm pitch.</li>
+                    <li><strong>USB Power Delivery at 20&nbsp;V</strong>, with its own power circuitry on the board, instead of being capped by USB-C's 5&nbsp;V budget.</li>
+                    <li><strong>An accelerometer and gyroscope</strong>, for animations that react to tilting and shaking the panel.</li>
+                    <li>Still a single, integrated panel: the controller stays on the board.</li>
+                </ul>
+            </div>
+
+            <nav class="pager" aria-label="Back"><a href="../">&larr; Back to the portfolio</a></nav>
+        </main>
+
+        <footer class="bottom">
+            <span>&copy; 2026 Sam Witte</span>
+            <nav aria-label="Contact">
+                <a href="mailto:sam@samwitte.com">sam@samwitte.com</a>
+                <a href="https://linkedin.com/in/samwitte/">LinkedIn</a>
+                <a href="https://github.com/samcwitte">GitHub</a>
+            </nav>
+        </footer>
+    </div>
+</body>
+</html>
